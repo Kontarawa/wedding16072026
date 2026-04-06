@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Алина и Роман — свадьба 16 июля 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rose-deep: #c97b8a;
+      --rose: #e8b4bc;
+      --rose-light: #fce8ec;
+      --rose-mist: #fff5f7;
+      --blush: #f9e4e8;
+      --ink: #4a3f42;
+      --ink-soft: #6d6065;
+      --white: #ffffff;
+      --gold: #d4a574;
+      --font-script: "Great Vibes", cursive;
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Montserrat", system-ui, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-weight: 300;
+      color: var(--ink);
+      background: var(--rose-mist);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 1000;
+    }
+
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(1.25rem, 5vw, 3rem);
+      position: relative;
+      background: radial-gradient(ellipse 120% 80% at 50% 0%, var(--blush) 0%, var(--rose-mist) 45%, var(--rose-light) 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 25%, rgba(232, 180, 188, 0.4) 0%, transparent 45%),
+        radial-gradient(circle at 85% 70%, rgba(252, 232, 236, 0.9) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 42rem;
+    }
+
+    .hero-badge {
+      font-size: clamp(0.65rem, 2.5vw, 0.75rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      margin-bottom: clamp(1rem, 4vw, 1.75rem);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.2s forwards;
+    }
+
+    .names-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: clamp(0.5rem, 3vw, 1.25rem);
+      margin-bottom: clamp(0.75rem, 3vw, 1.25rem);
+    }
+
+    .name {
+      font-family: var(--font-script);
+      font-size: clamp(3.25rem, 14vw, 6.5rem);
+      font-weight: 400;
+      line-height: 1;
+      color: var(--rose-deep);
+      text-shadow: 0 2px 24px rgba(201, 123, 138, 0.25);
+      opacity: 0;
+    }
+
+    .name--a { animation: fadeUp 1s ease 0.45s forwards; }
+    .name--amp {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.75rem, 7vw, 2.75rem);
+      color: var(--gold);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.55s forwards;
+    }
+    .name--r { animation: fadeUp 1s ease 0.65s forwards; }
+
+    .hero-divider {
+      width: min(12rem, 50vw);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rose), transparent);
+      margin: clamp(1rem, 4vw, 1.5rem) auto;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.85s forwards;
+    }
+
+    .hero-date {
+      font-family: var(--font-serif);
+      font-size: clamp(1.35rem, 5.5vw, 2rem);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      opacity: 0;
+      animation: fadeUp 0.9s ease 1s forwards;
+    }
+
+    .hero-date span {
+      display: block;
+      font-size: clamp(0.85rem, 3.2vw, 1rem);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      margin-top: 0.35rem;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: clamp(1.25rem, 4vh, 2rem);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose-deep);
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1.3s forwards, bounce 2.5s ease-in-out 2s infinite;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    section {
+      padding: clamp(3rem, 10vw, 5.5rem) clamp(1.25rem, 5vw, 2rem);
+    }
+
+    .section-inner {
+      max-width: 36rem;
+      margin: 0 auto;
+    }
+
+    .invite {
+      background: var(--white);
+      border-radius: clamp(12px, 3vw, 20px);
+      box-shadow:
+        0 4px 40px rgba(201, 123, 138, 0.12),
+        0 1px 0 rgba(255, 255, 255, 0.8) inset;
+      padding: clamp(2rem, 7vw, 3.5rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .invite::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -30%;
+      width: 70%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(252, 232, 236, 0.8) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .invite-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .invite h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 5vw, 1.85rem);
+      font-weight: 500;
+      text-align: center;
+      margin: 0 0 1.25rem;
+      color: var(--ink);
+    }
+
+    .invite p {
+      text-align: center;
+      font-size: clamp(0.95rem, 3.2vw, 1.05rem);
+      color: var(--ink-soft);
+      margin: 0 0 1rem;
+    }
+
+    .invite p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .countdown {
+      background: linear-gradient(165deg, var(--blush) 0%, var(--rose-light) 100%);
+    }
+
+    .countdown h2 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(1.35rem, 4.5vw, 1.65rem);
+      text-align: center;
+      margin: 0 0 1.75rem;
+      color: var(--ink);
+    }
+
+    .timer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(0.5rem, 3vw, 1rem);
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+
+    .timer-unit {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      padding: clamp(0.75rem, 3vw, 1.15rem) 0.5rem;
+      text-align: center;
+      border: 1px solid rgba(232, 180, 188, 0.35);
+      box-shadow: 0 8px 24px rgba(201, 123, 138, 0.08);
+    }
+
+    .timer-unit .value {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 6vw, 2.25rem);
+      font-weight: 600;
+      color: var(--rose-deep);
+      line-height: 1.2;
+    }
+
+    .timer-unit .label {
+      font-size: clamp(0.6rem, 2vw, 0.7rem);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-soft);
+      margin-top: 0.25rem;
+    }
+
+    .details {
+      background: var(--white);
+    }
+
+    .detail-cards {
+      display: grid;
+      gap: clamp(1rem, 4vw, 1.25rem);
+    }
+
+    .detail-card {
+      background: var(--rose-mist);
+      border-radius: 14px;
+      padding: clamp(1.25rem, 4vw, 1.75rem);
+      border: 1px solid rgba(232, 180, 188, 0.25);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .detail-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(201, 123, 138, 0.1);
+    }
+
+    .detail-card h3 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.15rem, 3.8vw, 1.35rem);
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      color: var(--rose-deep);
+    }
+
+    .detail-card p {
+      margin: 0;
+      font-size: clamp(0.9rem, 3vw, 1rem);
+      color: var(--ink-soft);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1.25rem 2.5rem;
+      font-family: var(--font-script);
+      font-size: clamp(1.75rem, 7vw, 2.5rem);
+      color: var(--rose-deep);
+      background: linear-gradient(180deg, var(--rose-mist) 0%, var(--blush) 100%);
+    }
+
+    footer .sub {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 380px) {
+      .names-row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .name--amp {
+        margin: -0.25rem 0;
+      }
+    }
+
+    @media (min-width: 600px) {
+      .detail-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <p class="hero-badge">Приглашаем вас</p>
+      <div class="names-row">
+        <span class="name name--a">Алина</span>
+        <span class="name name--amp">&</span>
+        <span class="name name--r">Роман</span>
+      </div>
+      <div class="hero-divider"></div>
+      <p class="hero-date">
+        16 · 07 · 2026
+        <span>четверг</span>
+      </p>
+    </div>
+    <p class="scroll-hint">ниже</p>
+  </header>
+
+  <section id="invite">
+    <div class="section-inner">
+      <div class="invite">
+        <div class="invite-content">
+          <h2>Дорогие гости</h2>
+          <p>
+            Мы будем счастливы разделить с вами один из самых важных дней в нашей
+            жизни. Ваша улыбка и тёплые пожелания сделают этот день по-настоящему волшебным.
+          </p>
+          <p>
+            Будем рады видеть вас на нашей свадьбе.
+          </p>
+          <p style="font-family: var(--font-serif); font-style: italic; color: var(--rose-deep); margin-top: 1.5rem;">
+            С любовью, Алина и Роман
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="countdown" id="timer-section" aria-live="polite">
+    <div class="section-inner">
+      <h2>До торжества осталось</h2>
+      <div class="timer" id="countdown">
+        <div class="timer-unit"><div class="value" id="cd-days">—</div><div class="label">дней</div></div>
+        <div class="timer-unit"><div class="value" id="cd-hours">—</div><div class="label">часов</div></div>
+        <div class="timer-unit"><div class="value" id="cd-mins">—</div><div class="label">минут</div></div>
+        <div class="timer-unit"><div class="value" id="cd-secs">—</div><div class="label">секунд</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="details">
+    <div class="section-inner">
+      <div class="detail-cards">
+        <article class="detail-card">
+          <h3>Дата и время</h3>
+          <p>16 июля 2026 года. Точное время и программа дня будут здесь позже — мы обновим страницу.</p>
+        </article>
+        <article class="detail-card">
+          <h3>Место</h3>
+          <p>Адрес церемонии и банкета появятся на этом сайте. Следите за обновлениями.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Алина &amp; Роман
+    <div class="sub">16 · 07 · 2026</div>
+  </footer>
+
+  <script>
+    (function () {
+      var weddingDay = new Date(2026, 6, 16, 0, 0, 0);
+
+      function pad(n) {
+        return n < 10 ? "0" + n : String(n);
+      }
+
+      function tick() {
+        var now = Date.now();
+        var diff = weddingDay.getTime() - now;
+        var elD = document.getElementById("cd-days");
+        var elH = document.getElementById("cd-hours");
+        var elM = document.getElementById("cd-mins");
+        var elS = document.getElementById("cd-secs");
+
+        if (diff <= 0) {
+          elD.textContent = elH.textContent = elM.textContent = "00";
+          elS.textContent = "00";
+          return;
+        }
+
+        var secs = Math.floor(diff / 1000);
+        var days = Math.floor(secs / 86400);
+        secs %= 86400;
+        var hours = Math.floor(secs / 3600);
+        secs %= 3600;
+        var mins = Math.floor(secs / 60);
+        secs %= 60;
+
+        elD.textContent = pad(Math.min(days, 999));
+        elH.textContent = pad(hours);
+        elM.textContent = pad(mins);
+        elS.textContent = pad(secs);
+      }
+
+      tick();
+      setInterval(tick, 1000);
+
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (reduced.matches) {
+        document.querySelectorAll(".name, .hero-badge, .hero-divider, .hero-date, .scroll-hint").forEach(function (el) {
+          el.style.animation = "none";
+          el.style.opacity = "1";
+          el.style.transform = "none";
+        });
+        document.querySelector(".scroll-hint").style.animation = "none";
+      }
+
+      document.querySelector(".scroll-hint").addEventListener("click", function () {
+        document.getElementById("invite").scrollIntoView({ behavior: "smooth" });
+      });
+    })();
+  </script>
+</body>
+</html>
