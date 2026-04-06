@@ -40,7 +40,7 @@ func main() {
 	}()
 
 	<-ctx.Done()
-	log.Println("остановка сервера…")
+	log.Println("Stopping server...")
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
