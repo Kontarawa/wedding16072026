@@ -9,23 +9,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --sage: #7a8567;
-      --sage-dark: #5f6a4f;
-      --sage-deep: #4a5340;
-      --cream: #f5f0e8;
-      --cream-dark: #e8dfd2;
-      --blush: #f5d1d3;
-      --pearl: #fdeeef;
+      /* Палитра торжества */
+      --palette-lemon: #f0e16a;
+      --palette-lilac: #d7c8e6;
+      --palette-sky: #b3bfcb;
+      --palette-petal: #ebb2b1;
+      --palette-olive: #8b9649;
+      --palette-coffee: #7e6149;
+
+      --sage: var(--palette-olive);
+      --sage-dark: #6f7c3d;
+      --sage-deep: #5a6534;
+      --cream: #faf7ef;
+      --cream-dark: #f0ebe0;
+      --blush: #fddfd8;
+      --pearl: #faf7fb;
       --wood: #3e2f26;
       --ink: #2c2420;
       --ink-soft: #5c534e;
       --white: #fff;
       --wax: #c17f59;
       --wax-light: #e0a080;
-      --gold: #b8956c;
-      --gold-soft: #d4c4a8;
+      --gold: var(--palette-lemon);
+      --gold-soft: color-mix(in srgb, var(--palette-lemon) 45%, white);
       --paper: #faf7f2;
       --paper-shadow: #dcd4c8;
+      --cover-sage: #7d8744;
+      --cover-sage-deep: #6a7339;
+      --cover-sage-mid: #8b9649;
       --font-script: "Great Vibes", cursive;
       --font-sans: "Montserrat", system-ui, sans-serif;
       --torn: polygon(
@@ -94,232 +105,222 @@
     .cover-bg {
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse 100% 70% at 50% -10%, rgba(255, 248, 240, 0.18), transparent 55%),
-        radial-gradient(ellipse 80% 50% at 80% 100%, rgba(0, 0, 0, 0.15), transparent 45%),
-        linear-gradient(168deg, #7d8b6e 0%, #5c6750 42%, #3e4635 100%);
+      background-color: var(--cover-sage);
+      background-image:
+        radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255, 255, 255, 0.11), transparent 52%),
+        radial-gradient(ellipse 90% 60% at 50% 100%, rgba(0, 0, 0, 0.07), transparent 45%),
+        radial-gradient(ellipse 50% 40% at 20% 70%, rgba(240, 225, 106, 0.07), transparent 55%);
       z-index: 0;
+      animation: coverBreath 12s ease-in-out infinite;
+    }
+
+    @keyframes coverBreath {
+      0%, 100% { filter: brightness(1) saturate(1); }
+      50% { filter: brightness(1.07) saturate(1.06); }
     }
 
     .cover-bg::after {
       content: "";
       position: absolute;
       inset: 0;
-      opacity: 0.35;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
+      opacity: 0.14;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
       pointer-events: none;
+    }
+
+    .cover-aurora {
+      position: absolute;
+      inset: -35%;
+      background: conic-gradient(
+        from 200deg at 50% 45%,
+        transparent 0deg,
+        rgba(255, 255, 255, 0.07) 55deg,
+        transparent 110deg,
+        rgba(240, 225, 106, 0.06) 200deg,
+        transparent 280deg,
+        rgba(255, 255, 255, 0.05) 330deg,
+        transparent 360deg
+      );
+      animation: coverAurora 32s linear infinite;
+      opacity: 0.65;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes coverAurora {
+      to { transform: rotate(1turn); }
+    }
+
+    .cover-frame {
+      position: absolute;
+      inset: min(14px, 3vw);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      box-shadow:
+        inset 0 0 80px rgba(0, 0, 0, 0.07),
+        0 0 0 1px rgba(0, 0, 0, 0.04);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .cover-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 72% 68% at 50% 42%, transparent 0%, rgba(35, 40, 25, 0.18) 100%);
+      pointer-events: none;
+      z-index: 1;
     }
 
     .cover-inner {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       width: 100%;
-      max-width: 28rem;
-      transition: transform 0.8s cubic-bezier(0.34, 1.3, 0.64, 1);
+      max-width: 24rem;
+      min-height: 100dvh;
+      padding: calc(1.25rem + env(safe-area-inset-top, 0px)) 1.5rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+      transition: transform 0.75s cubic-bezier(0.34, 1.2, 0.64, 1);
     }
 
     body.is-opening .cover-inner {
-      transform: scale(0.96);
+      transform: scale(0.985);
     }
 
-    .cover-kicker {
-      margin: 0 0 0.35rem;
-      font-size: 0.68rem;
-      letter-spacing: 0.42em;
-      text-transform: uppercase;
-      font-weight: 500;
-      opacity: 0.88;
-      animation: fadeSlideDown 1s ease 0.2s both;
+    /* Экран как на референсе: клапан + сургуч */
+    .invite-scene {
+      width: 100%;
+      max-width: 21rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: opacity 0.65s ease, transform 0.85s cubic-bezier(0.45, 0, 0.2, 1), filter 0.55s ease;
+      filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.22));
     }
 
-    .cover h1 {
+    .invite-scene.is-flyout {
+      opacity: 0;
+      transform: translateY(-12vh) scale(1.06);
+      filter: blur(8px);
+    }
+
+    .invite-flap {
+      position: relative;
+      width: 100%;
+      padding: clamp(2.4rem, 9vw, 3.85rem) 1.5rem clamp(3.1rem, 12vw, 4.9rem);
+      background: linear-gradient(175deg, rgba(255, 255, 255, 0.14) 0%, rgba(0, 0, 0, 0.06) 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -20px 40px rgba(0, 0, 0, 0.04);
+      transform-origin: 50% 100%;
+      transition: transform 0.95s cubic-bezier(0.33, 1.15, 0.48, 1), opacity 0.65s ease;
+      animation: fadeSlideDown 0.9s ease 0.15s both;
+    }
+
+    .invite-divider {
+      width: min(9rem, 52%);
+      height: 1px;
+      margin: 0.9rem auto 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      opacity: 0.85;
+    }
+
+    .invite-scene.is-unsealed .invite-flap {
+      transform: translateY(-42%) scale(0.88);
+      opacity: 0;
+    }
+
+    .cover-title-split {
+      margin: 0;
       font-family: var(--font-script);
-      font-size: clamp(2.5rem, 10vw, 4rem);
       font-weight: 400;
       text-align: center;
-      margin: 0 0 2rem;
-      line-height: 1.08;
-      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-      animation: fadeSlideDown 1s ease 0.35s both;
+      color: #fff;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     }
 
-    .envelope-stage {
+    .cover-title-split .ct-line {
+      display: block;
+      font-size: clamp(2.35rem, 9.5vw, 3.65rem);
+      line-height: 1.02;
+      letter-spacing: 0.02em;
+    }
+
+    .cover-title-split .ct-line--sub {
+      font-size: clamp(2.05rem, 8.5vw, 3.25rem);
+      margin-top: 0.06em;
+    }
+
+    .cover-title-split .ct-line--sub:empty {
+      display: none;
+    }
+
+    .invite-lower {
       position: relative;
-      width: min(19.5rem, 90vw);
-      height: min(13.5rem, 58vw);
-      -webkit-perspective: 1200px;
-      perspective: 1200px;
-      filter: drop-shadow(0 28px 50px rgba(0, 0, 0, 0.28));
-      animation: fadeSlideDown 1.1s ease 0.5s both;
-    }
-
-    .envelope-3d {
-      position: absolute;
-      inset: 0;
-      transform-style: preserve-3d;
-      transition: transform 0.95s cubic-bezier(0.34, 1.25, 0.64, 1), opacity 0.7s ease;
-    }
-
-    body.is-open .envelope-3d {
-      transform: translateY(-18vh) rotateX(8deg) scale(1.35);
-      opacity: 0;
-    }
-
-    .env-paper {
-      position: absolute;
-      left: 7%;
-      right: 7%;
-      top: 16%;
-      bottom: 9%;
-      background: linear-gradient(152deg, var(--paper) 0%, #f0ebe4 50%, #e8e2d8 100%);
-      border-radius: 3px;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.9),
-        inset 0 0 0 1px rgba(62, 47, 38, 0.06);
-      z-index: 1;
-    }
-
-    .env-bot {
-      position: absolute;
-      left: 7%;
-      right: 7%;
-      bottom: 9%;
-      height: 44%;
-      background: linear-gradient(180deg, #e3dbd0 0%, #d4cbc0 100%);
-      clip-path: polygon(0 0, 50% 100%, 100% 0);
+      display: flex;
+      justify-content: center;
+      margin-top: -1.4rem;
+      padding-bottom: 0.5rem;
       z-index: 2;
-      box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.06);
+      animation: fadeSlideDown 0.95s ease 0.35s both;
     }
 
-    .env-side {
-      position: absolute;
-      top: 16%;
-      bottom: 9%;
-      width: 48%;
-      z-index: 3;
-      background: linear-gradient(90deg, #ded5cb, #eae2d8);
-      opacity: 0.95;
-    }
-
-    .env-side--l {
-      left: 7%;
-      clip-path: polygon(0 0, 100% 18%, 100% 82%, 0 100%);
-    }
-
-    .env-side--r {
-      right: 7%;
-      clip-path: polygon(0 18%, 100% 0, 100% 100%, 0 82%);
-      background: linear-gradient(270deg, #ded5cb, #eae2d8);
-    }
-
-    .env-top {
-      position: absolute;
-      left: 7%;
-      right: 7%;
-      top: 16%;
-      height: 46%;
-      background: linear-gradient(180deg, #f5f0e9 0%, #e8e1d7 100%);
-      clip-path: polygon(0 100%, 50% 0, 100% 100%);
-      z-index: 4;
-      -webkit-transform-origin: 50% 0;
-      transform-origin: 50% 0;
-      -webkit-transform: rotateX(0deg);
-      transform: rotateX(0deg);
-      transition:
-        -webkit-transform 1.05s cubic-bezier(0.34, 1.15, 0.64, 1),
-        transform 1.05s cubic-bezier(0.34, 1.15, 0.64, 1);
-      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-
-    .envelope-3d.is-unsealed .env-top {
-      -webkit-transform: rotateX(-176deg);
-      transform: rotateX(-176deg);
-      z-index: 0;
-    }
-
-    .wax-wrap {
-      position: absolute;
-      left: 50%;
-      top: 53%;
-      transform: translate(-50%, -50%);
-      z-index: 6;
-      animation: waxGlow 3.2s ease-in-out infinite;
-    }
-
-    .envelope-3d.is-unsealed .wax-wrap {
-      animation: none;
-      transition: transform 0.55s cubic-bezier(0.55, 0, 0.85, -0.2), opacity 0.45s ease;
-      transform: translate(-50%, -50%) scale(0.15) rotate(-25deg);
-      opacity: 0;
-    }
-
-    .wax-btn {
-      width: clamp(5.25rem, 24vw, 6.25rem);
-      height: clamp(5.25rem, 24vw, 6.25rem);
+    .intro-seal-btn {
+      width: clamp(4.15rem, 18vw, 4.85rem);
+      height: clamp(4.15rem, 18vw, 4.85rem);
       border-radius: 50%;
       border: none;
       cursor: pointer;
       display: grid;
       place-items: center;
-      padding: 0.4rem;
-      background: radial-gradient(ellipse 95% 85% at 32% 28%, #f0c9a8, #c4855e 42%, #8a4f38 88%, #5c3528 100%);
+      padding: 0.35rem;
+      background: radial-gradient(ellipse 95% 88% at 32% 22%, #f0e0d4, #d49a7c 32%, #b87355 58%, #8a513d 85%, #5c3428 100%);
       box-shadow:
-        inset 0 3px 8px rgba(255, 255, 255, 0.45),
-        inset 0 -4px 12px rgba(0, 0, 0, 0.25),
-        0 14px 32px rgba(0, 0, 0, 0.35),
-        0 0 0 1px rgba(255, 255, 255, 0.12);
-      color: rgba(40, 28, 22, 0.88);
+        inset 0 5px 14px rgba(255, 255, 255, 0.38),
+        inset 0 -7px 16px rgba(0, 0, 0, 0.28),
+        0 12px 28px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.15),
+        0 0 0 5px rgba(180, 130, 100, 0.12);
+      color: rgba(255, 250, 245, 0.95);
       font-family: var(--font-sans);
       font-weight: 600;
-      font-size: clamp(0.58rem, 2.4vw, 0.72rem);
-      letter-spacing: 0.14em;
+      font-size: clamp(0.5rem, 1.95vw, 0.58rem);
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      line-height: 1.25;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      line-height: 1;
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        opacity 0.45s ease;
+      animation: sealPulse 2.8s ease-in-out infinite;
     }
 
-    .wax-btn:hover,
-    .wax-btn:focus-visible {
+    .intro-seal-btn:hover,
+    .intro-seal-btn:focus-visible {
       transform: scale(1.06);
       box-shadow:
-        inset 0 3px 8px rgba(255, 255, 255, 0.5),
-        inset 0 -4px 12px rgba(0, 0, 0, 0.2),
-        0 18px 40px rgba(0, 0, 0, 0.38);
+        inset 0 5px 14px rgba(255, 255, 255, 0.42),
+        inset 0 -6px 14px rgba(0, 0, 0, 0.24),
+        0 16px 36px rgba(0, 0, 0, 0.32),
+        0 0 0 1px rgba(255, 255, 255, 0.18);
       outline: none;
     }
 
-    .wax-btn:focus-visible {
-      outline: 2px solid var(--pearl);
+    .intro-seal-btn:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.55);
       outline-offset: 4px;
     }
 
-    .wax-btn .wax-line {
-      display: block;
-      font-size: 0.78em;
-      letter-spacing: 0.22em;
-      margin-top: 0.15em;
-      opacity: 0.85;
-    }
-
-    .cover-hint {
-      margin: 1.35rem 0 0;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.72;
-      animation: fadeSlideDown 1s ease 0.7s both;
-    }
-
-    body.is-opening .cover-hint,
-    body.is-open .cover-hint {
+    .invite-scene.is-unsealed .intro-seal-btn {
       opacity: 0;
-      transition: opacity 0.35s ease;
+      transform: scale(0.12);
+      pointer-events: none;
     }
 
     @keyframes fadeSlideDown {
@@ -333,12 +334,12 @@
       }
     }
 
-    @keyframes waxGlow {
+    @keyframes sealPulse {
       0%, 100% {
-        filter: drop-shadow(0 0 14px rgba(196, 140, 102, 0.35));
+        filter: drop-shadow(0 0 14px rgba(220, 170, 130, 0.4)) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
       }
       50% {
-        filter: drop-shadow(0 0 22px rgba(232, 196, 160, 0.55));
+        filter: drop-shadow(0 0 26px rgba(255, 230, 200, 0.55)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.15));
       }
     }
 
@@ -460,7 +461,14 @@
     }
 
     .block--cream { background: var(--cream); }
-    .block--blush { background: linear-gradient(180deg, var(--pearl) 0%, var(--blush) 100%); }
+    .block--blush {
+      background: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--palette-lilac) 22%, white) 0%,
+        color-mix(in srgb, var(--palette-petal) 28%, white) 55%,
+        color-mix(in srgb, var(--palette-sky) 12%, white) 100%
+      );
+    }
 
     .inner { max-width: 26rem; margin: 0 auto; }
 
@@ -556,6 +564,7 @@
     .timeline-wrap {
       position: relative;
       margin-top: 2rem;
+      margin-bottom: 0.5rem;
       padding: 0.5rem 0 2rem;
       min-height: 0;
     }
@@ -608,7 +617,7 @@
     .titem--right { right: 0; text-align: right; }
 
     .venue-photo {
-      margin: 0 0 1.25rem;
+      margin: 0 auto 2rem;
       border-radius: 14px;
       overflow: hidden;
       aspect-ratio: 4 / 3;
@@ -697,8 +706,40 @@
       line-height: 1.65;
     }
 
+    .block--note {
+      background: var(--cream);
+      padding-top: clamp(1.75rem, 5vw, 2.5rem);
+      padding-bottom: clamp(1.75rem, 5vw, 2.5rem);
+    }
+
+    .note-card {
+      padding: clamp(1.5rem, 4.5vw, 2rem) clamp(1.2rem, 4vw, 1.65rem);
+      border-radius: 18px;
+      background: var(--white);
+      border: 1px solid rgba(122, 133, 103, 0.22);
+      box-shadow: 0 12px 36px rgba(62, 47, 38, 0.07);
+    }
+
+    .note-title {
+      margin: 0 0 0.85rem;
+      font-size: clamp(0.7rem, 2.1vw, 0.78rem);
+      font-weight: 600;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--sage-deep);
+    }
+
+    .note-text {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(0.9rem, 3vw, 1.01rem);
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
     .venue-card {
-      margin-top: 1.5rem;
+      margin: 0 0 2.75rem;
       padding: 1.35rem 1.25rem;
       border-radius: 16px;
       background: var(--white);
@@ -723,20 +764,20 @@
     @keyframes routeRing {
       0%, 100% {
         box-shadow:
-          0 0 0 8px rgba(245, 240, 232, 0.55),
+          0 0 0 5px rgba(245, 240, 232, 0.5),
           0 0 0 0 rgba(122, 133, 103, 0);
       }
       50% {
         box-shadow:
-          0 0 0 10px rgba(245, 240, 232, 0.35),
-          0 0 0 18px rgba(122, 133, 103, 0.12);
+          0 0 0 7px rgba(245, 240, 232, 0.32),
+          0 0 0 14px rgba(122, 133, 103, 0.1);
       }
     }
 
     .route-btn {
       display: block;
-      margin: 1.5rem auto 0;
-      width: min(11rem, 80vw);
+      margin: 1rem auto 1.75rem;
+      width: min(8.75rem, 56vw);
       aspect-ratio: 1;
       border-radius: 50%;
       border: none;
@@ -744,12 +785,12 @@
       background: radial-gradient(circle at 50% 45%, var(--sage) 0%, var(--sage-dark) 100%);
       color: var(--cream);
       font-family: var(--font-sans);
-      font-size: 0.78rem;
+      font-size: 0.66rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      line-height: 1.25;
-      padding: 0.75rem;
-      box-shadow: 0 0 0 8px rgba(245, 240, 232, 0.65);
+      letter-spacing: 0.03em;
+      line-height: 1.2;
+      padding: 0.45rem 0.55rem;
+      box-shadow: 0 0 0 5px rgba(245, 240, 232, 0.55);
       text-decoration: none;
       text-align: center;
       display: grid;
@@ -763,16 +804,79 @@
       filter: brightness(1.06);
     }
 
-    .subhead { font-family: var(--font-script); font-size: 2rem; margin: 2.5rem 0 1rem; color: var(--wood); }
-
-    .swatches {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-top: 1rem;
+    .subhead {
+      font-family: var(--font-script);
+      font-size: 2rem;
+      margin: 0 0 1rem;
+      padding-top: 0.25rem;
+      color: var(--wood);
     }
-    .sw { width: 2rem; height: 2rem; border-radius: 4px; border: 1px solid rgba(0,0,0,0.08); }
+
+    .palette-row {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: clamp(0.12rem, 1.5vw, 0.4rem);
+      margin-top: 1.35rem;
+      width: 100%;
+    }
+
+    .palette-chip {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 4rem;
+      border-radius: clamp(8px, 2vw, 12px);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 6px 20px rgba(62, 47, 38, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      gap: 0;
+    }
+
+    .palette-chip__swatch {
+      flex: 0 0 auto;
+      width: 100%;
+      aspect-ratio: 1 / 0.88;
+      height: auto;
+      min-height: 1.65rem;
+      max-height: 2.6rem;
+      margin: 0;
+      padding: 0;
+      border: none;
+      display: block;
+      line-height: 0;
+      font-size: 0;
+      border-radius: 0;
+      vertical-align: top;
+    }
+
+    .palette-chip__meta {
+      flex: 0 0 auto;
+      margin: -1px 0 0;
+      padding: calc(0.28rem + 1px) clamp(0.08rem, 1.2vw, 0.28rem) 0.38rem;
+      text-align: center;
+      background: linear-gradient(180deg, #fff 0%, #faf8f4 100%);
+      border-top: none;
+    }
+
+    .palette-chip__hex {
+      font-size: clamp(0.42rem, 2.6vw, 0.54rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+    }
+
+    .palette-chip__name {
+      font-family: var(--font-script);
+      font-size: clamp(0.48rem, 2.8vw, 0.75rem);
+      line-height: 1.2;
+      color: var(--wood);
+      margin-top: 0.12rem;
+    }
 
     .rsvp {
       border-top: 1px solid rgba(122, 133, 103, 0.2);
@@ -880,7 +984,13 @@
       body.is-open .hero-photo {
         animation: none;
       }
-      .wax-wrap {
+      .intro-seal-btn {
+        animation: none;
+      }
+      .cover-bg {
+        animation: none;
+      }
+      .cover-aurora {
         animation: none;
       }
       .gifts-card::before {
@@ -892,10 +1002,10 @@
       .block--cream.reveal.is-visible .heart {
         animation: none;
       }
-      .cover h1,
-      .cover-kicker,
-      .envelope-stage,
-      .cover-hint {
+      .cover-title-split,
+      .invite-scene,
+      .invite-flap,
+      .invite-lower {
         animation: none;
         opacity: 1;
         transform: none;
@@ -911,24 +1021,22 @@
 <body>
   <div class="cover" id="cover" aria-hidden="false">
     <div class="cover-bg" aria-hidden="true"></div>
+    <div class="cover-aurora" aria-hidden="true"></div>
+    <div class="cover-vignette" aria-hidden="true"></div>
+    <div class="cover-frame" aria-hidden="true"></div>
     <div class="cover-inner">
-      <p class="cover-kicker">Свадьба</p>
-      <h1 id="cover-title">Приглашение на свадьбу</h1>
-      <div class="envelope-stage">
-        <div class="envelope-3d" id="envelope-3d">
-          <div class="env-paper" aria-hidden="true"></div>
-          <div class="env-bot" aria-hidden="true"></div>
-          <div class="env-side env-side--l" aria-hidden="true"></div>
-          <div class="env-side env-side--r" aria-hidden="true"></div>
-          <div class="env-top" aria-hidden="true"></div>
-          <div class="wax-wrap">
-            <button type="button" class="wax-btn" id="open-invite">
-              Открыть<span class="wax-line">приглашение</span>
-            </button>
-          </div>
+      <div class="invite-scene" id="intro-envelope">
+        <div class="invite-flap">
+          <h1 id="cover-title" class="cover-title-split">
+            <span class="ct-line" id="cover-line1">Приглашение</span>
+            <span class="ct-line ct-line--sub" id="cover-line2">на свадьбу</span>
+          </h1>
+          <div class="invite-divider" aria-hidden="true"></div>
+        </div>
+        <div class="invite-lower">
+          <button type="button" class="intro-seal-btn" id="open-invite">Нажмите</button>
         </div>
       </div>
-      <p class="cover-hint">Нажмите на сургуч</p>
     </div>
   </div>
 
@@ -974,7 +1082,13 @@
           <div class="timeline-items" id="timeline-items"></div>
         </div>
 
-        <a class="route-btn" id="map-link" href="#" rel="noopener noreferrer" target="_blank">Построить<br />маршрут</a>
+        <a
+          class="route-btn"
+          id="map-link"
+          href="https://yandex.ru/maps/?text=%D0%91%D0%B5%D0%BB%D0%B0%D1%8F+%D0%92%D0%B5%D1%80%D0%B0%D0%BD%D0%B4%D0%B0+%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%81%D0%BA%D0%B0%D1%8F+81%D0%90+%D0%B3%D1%80%D0%B8%D0%B1%D0%BE%D0%B5%D0%B4%D0%BE%D0%B2%D0%BE"
+          rel="noopener noreferrer"
+          target="_blank"
+        >Построить<br />маршрут</a>
 
         <figure class="venue-photo">
           <img id="venue-photo" src="static/venue.png" alt="Белая Веранда" width="1200" height="900" loading="lazy" decoding="async" />
@@ -985,14 +1099,53 @@
           <p id="venue-address">Ул. Советская 81А, с. Грибоедово</p>
         </div>
 
-        <h2 class="subhead" style="text-align:center">Дресс-код</h2>
-        <p class="lead">Будем благодарны, если вы поддержите мягкую природную палитру: зелень, пудровый, светлый лён.</p>
-        <div class="swatches" aria-hidden="true">
-          <span class="sw" style="background:#4a5340"></span>
-          <span class="sw" style="background:#8a9470"></span>
-          <span class="sw" style="background:#9aa8b8"></span>
-          <span class="sw" style="background:#e8dfe8"></span>
-          <span class="sw" style="background:#fff;border-color:#ccc"></span>
+        <h2 class="subhead" style="text-align:center">Dress Code</h2>
+        <p class="lead">
+          Нам будет очень приятно, если вы поддержите цветовую палитру нашего праздника.
+        </p>
+        <div class="palette-row" aria-label="Цветовая палитра дресс-кода">
+          <div class="palette-chip">
+            <div class="palette-chip__swatch" style="background: var(--palette-lemon)"></div>
+            <div class="palette-chip__meta">
+              <div class="palette-chip__hex">#F0E16A</div>
+              <div class="palette-chip__name">Lemon</div>
+            </div>
+          </div>
+          <div class="palette-chip">
+            <div class="palette-chip__swatch" style="background: var(--palette-lilac)"></div>
+            <div class="palette-chip__meta">
+              <div class="palette-chip__hex">#D7C8E6</div>
+              <div class="palette-chip__name">Lilac Mist</div>
+            </div>
+          </div>
+          <div class="palette-chip">
+            <div class="palette-chip__swatch" style="background: var(--palette-sky)"></div>
+            <div class="palette-chip__meta">
+              <div class="palette-chip__hex">#B3BFCB</div>
+              <div class="palette-chip__name">Sky Haze</div>
+            </div>
+          </div>
+          <div class="palette-chip">
+            <div class="palette-chip__swatch" style="background: var(--palette-petal)"></div>
+            <div class="palette-chip__meta">
+              <div class="palette-chip__hex">#EBB2B1</div>
+              <div class="palette-chip__name">Petal Blush</div>
+            </div>
+          </div>
+          <div class="palette-chip">
+            <div class="palette-chip__swatch" style="background: var(--palette-olive)"></div>
+            <div class="palette-chip__meta">
+              <div class="palette-chip__hex">#8B9649</div>
+              <div class="palette-chip__name">Olive Grove</div>
+            </div>
+          </div>
+          <div class="palette-chip">
+            <div class="palette-chip__swatch" style="background: var(--palette-coffee)"></div>
+            <div class="palette-chip__meta">
+              <div class="palette-chip__hex">#7E6149</div>
+              <div class="palette-chip__name">Coffee</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1004,6 +1157,17 @@
           <p class="gifts-lead">Ваше присутствие&nbsp;— самый ценный подарок для нас.</p>
           <p class="gifts-text">
             Если вы захотите дополнить его чем‑то ещё, мы будем благодарны за любой денежный вклад в наше совместное будущее.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block block--note reveal" id="note-gorko">
+      <div class="inner">
+        <div class="note-card">
+          <h2 class="note-title">Примечание</h2>
+          <p class="note-text">
+            Будем благодарны, если вы воздержитесь от криков «Горько» на празднике, ведь поцелуй&nbsp;— это знак выражения чувств, он не может быть по заказу.
           </p>
         </div>
       </div>
@@ -1072,14 +1236,17 @@
 
       function openInvite() {
         if (document.body.classList.contains("is-open") || document.body.classList.contains("is-opening")) return;
-        var env = document.getElementById("envelope-3d");
+        var wrap = document.getElementById("intro-envelope");
         document.body.classList.add("is-opening");
-        if (env) env.classList.add("is-unsealed");
+        if (wrap) wrap.classList.add("is-unsealed");
+        window.setTimeout(function () {
+          if (wrap) wrap.classList.add("is-flyout");
+        }, 720);
         window.setTimeout(function () {
           document.body.classList.add("is-open");
           document.body.classList.remove("is-opening");
           document.getElementById("cover").setAttribute("aria-hidden", "true");
-        }, 980);
+        }, 1180);
       }
       document.getElementById("open-invite").addEventListener("click", openInvite);
 
@@ -1152,7 +1319,21 @@
 
       function applyEvent(data) {
         if (!data) return;
-        if (data.title) document.getElementById("cover-title").textContent = data.title;
+        if (data.title) {
+          var t = data.title.trim();
+          var l1 = document.getElementById("cover-line1");
+          var l2 = document.getElementById("cover-line2");
+          if (l1 && l2) {
+            var idx = t.toLowerCase().indexOf(" на ");
+            if (idx !== -1) {
+              l1.textContent = t.slice(0, idx).trim();
+              l2.textContent = t.slice(idx + 1).trim();
+            } else {
+              l1.textContent = t;
+              l2.textContent = "";
+            }
+          }
+        }
         if (data.couple) {
           var pair = data.couple.name1 + " & " + data.couple.name2;
           document.getElementById("hero-pair").textContent = pair;
