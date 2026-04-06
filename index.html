@@ -6,7 +6,7 @@
   <title>Приглашение на свадьбу</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       /* Палитра торжества */
@@ -15,7 +15,7 @@
       --palette-sky: #b3bfcb;
       --palette-petal: #ebb2b1;
       --palette-olive: #8b9649;
-      --palette-coffee: #7e6149;
+      --palette-coffee: #8c6f58;
 
       --sage: var(--palette-olive);
       --sage-dark: #6f7c3d;
@@ -24,12 +24,12 @@
       --cream-dark: #f0ebe0;
       --blush: #fddfd8;
       --pearl: #faf7fb;
-      --wood: #3e2f26;
-      --ink: #2c2420;
-      --ink-soft: #5c534e;
+      --wood: #4a3a30;
+      --ink: #38302a;
+      --ink-soft: #696058;
       --white: #fff;
-      --wax: #c17f59;
-      --wax-light: #e0a080;
+      --wax: #c98965;
+      --wax-light: #e5ab90;
       --gold: var(--palette-lemon);
       --gold-soft: color-mix(in srgb, var(--palette-lemon) 45%, white);
       --paper: #faf7f2;
@@ -39,18 +39,19 @@
       --cover-sage-mid: #8b9649;
       --font-script: "Great Vibes", cursive;
       --font-sans: "Montserrat", system-ui, sans-serif;
-      --torn: polygon(
-        0% 4%, 4% 0%, 9% 3%, 14% 0%, 19% 2%, 24% 0%, 29% 3%, 34% 0%, 39% 2%, 44% 0%,
-        49% 3%, 54% 0%, 59% 2%, 64% 0%, 69% 3%, 74% 0%, 79% 2%, 84% 0%, 89% 3%, 94% 0%, 100% 2%,
-        100% 100%, 96% 96%, 91% 100%, 86% 97%, 81% 100%, 76% 96%, 71% 100%, 66% 97%, 61% 100%,
-        56% 96%, 51% 100%, 46% 97%, 41% 100%, 36% 96%, 31% 100%, 26% 97%, 21% 100%, 16% 96%,
-        11% 100%, 6% 97%, 0% 100%
-      );
+      --font-display: "Outfit", system-ui, sans-serif;
+      --primary: var(--sage);
+      --primary-soft: color-mix(in srgb, var(--sage) 14%, var(--cream));
+      --primary-line: color-mix(in srgb, var(--sage) 26%, transparent);
+      --primary-glow: color-mix(in srgb, var(--sage) 32%, transparent);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: env(safe-area-inset-top, 0px);
+    }
 
     body {
       margin: 0;
@@ -61,11 +62,17 @@
       line-height: 1.55;
       overflow-x: hidden;
     }
+    @supports (overflow: clip) {
+      body {
+        overflow-x: clip;
+      }
+    }
 
     main#main {
       opacity: 0;
       transform: translateY(2rem) scale(0.96);
       filter: blur(14px);
+      overflow: visible;
       transition:
         opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1),
         transform 1.15s cubic-bezier(0.22, 1, 0.36, 1),
@@ -105,71 +112,56 @@
     .cover-bg {
       position: absolute;
       inset: 0;
-      background-color: var(--cover-sage);
+      background-color: #4d5630;
       background-image:
-        radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255, 255, 255, 0.11), transparent 52%),
-        radial-gradient(ellipse 90% 60% at 50% 100%, rgba(0, 0, 0, 0.07), transparent 45%),
-        radial-gradient(ellipse 50% 40% at 20% 70%, rgba(240, 225, 106, 0.07), transparent 55%);
+        radial-gradient(ellipse 120% 85% at 15% 15%, rgba(240, 225, 106, 0.22), transparent 52%),
+        radial-gradient(ellipse 90% 70% at 92% 78%, rgba(215, 200, 230, 0.18), transparent 48%),
+        radial-gradient(ellipse 70% 55% at 50% 108%, rgba(235, 178, 177, 0.14), transparent 42%),
+        radial-gradient(ellipse 100% 90% at 50% -10%, rgba(255, 255, 255, 0.16), transparent 45%),
+        radial-gradient(ellipse 70% 55% at 100% 80%, rgba(240, 225, 106, 0.08), transparent 50%),
+        radial-gradient(ellipse 55% 50% at 0% 60%, rgba(215, 200, 230, 0.07), transparent 45%),
+        linear-gradient(152deg, #2f331f 0%, var(--cover-sage-deep) 28%, var(--cover-sage) 55%, var(--cover-sage-mid) 88%, color-mix(in srgb, var(--cover-sage-mid) 75%, var(--palette-lemon)) 100%);
       z-index: 0;
-      animation: coverBreath 12s ease-in-out infinite;
-    }
-
-    @keyframes coverBreath {
-      0%, 100% { filter: brightness(1) saturate(1); }
-      50% { filter: brightness(1.07) saturate(1.06); }
     }
 
     .cover-bg::after {
       content: "";
       position: absolute;
       inset: 0;
-      opacity: 0.14;
+      opacity: 0.1;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      mix-blend-mode: soft-light;
+      mix-blend-mode: overlay;
       pointer-events: none;
-    }
-
-    .cover-aurora {
-      position: absolute;
-      inset: -35%;
-      background: conic-gradient(
-        from 200deg at 50% 45%,
-        transparent 0deg,
-        rgba(255, 255, 255, 0.07) 55deg,
-        transparent 110deg,
-        rgba(240, 225, 106, 0.06) 200deg,
-        transparent 280deg,
-        rgba(255, 255, 255, 0.05) 330deg,
-        transparent 360deg
-      );
-      animation: coverAurora 32s linear infinite;
-      opacity: 0.65;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes coverAurora {
-      to { transform: rotate(1turn); }
-    }
-
-    .cover-frame {
-      position: absolute;
-      inset: min(14px, 3vw);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      box-shadow:
-        inset 0 0 80px rgba(0, 0, 0, 0.07),
-        0 0 0 1px rgba(0, 0, 0, 0.04);
-      pointer-events: none;
-      z-index: 1;
     }
 
     .cover-vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 72% 68% at 50% 42%, transparent 0%, rgba(35, 40, 25, 0.18) 100%);
+      background: radial-gradient(ellipse 75% 70% at 50% 42%, transparent 0%, rgba(18, 20, 12, 0.42) 100%);
       pointer-events: none;
       z-index: 1;
+    }
+
+    .cover-deco {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.4;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none'%3E%3Cpath d='M20 40c18-8 36 4 44 22 6-14 22-24 38-18-10 18-28 32-46 48C48 84 32 62 20 40z' stroke='%23f5f0e8' stroke-width='0.6' opacity='0.5'/%3E%3Cpath d='M160 150c-12 10-28 6-40-6-8 12-26 18-40 8 16-20 34-38 52-56 12 16 20 36 28 54z' stroke='%23f0e16a' stroke-width='0.45' opacity='0.35'/%3E%3Cpath d='M100 24l4 12 12 2-9 8 3 12-10-6-10 6 3-12-9-8 12-2z' fill='%23f5f0e8' opacity='0.12'/%3E%3Cpath d='M168 52l3 8 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z' fill='%23f0e16a' opacity='0.1'/%3E%3C/svg%3E");
+      background-size: clamp(280px, 95vw, 440px);
+      background-position: center 18%;
+      background-repeat: no-repeat;
+    }
+
+    @keyframes coverDecoDrift {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.38; }
+      50% { transform: translateY(-6px) rotate(1.5deg); opacity: 0.46; }
+    }
+
+    body:not(.is-open) .cover-deco {
+      animation: coverDecoDrift 14s ease-in-out infinite;
     }
 
     .cover-inner {
@@ -180,153 +172,28 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      max-width: 24rem;
+      max-width: 22rem;
       min-height: 100dvh;
-      padding: calc(1.25rem + env(safe-area-inset-top, 0px)) 1.5rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+      padding: calc(1.25rem + env(safe-area-inset-top, 0px)) 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
       transition: transform 0.75s cubic-bezier(0.34, 1.2, 0.64, 1);
     }
 
     body.is-opening .cover-inner {
-      transform: scale(0.985);
+      transform: scale(0.99);
     }
 
-    /* Экран как на референсе: клапан + сургуч */
     .invite-scene {
       width: 100%;
-      max-width: 21rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      max-width: 20rem;
       transition: opacity 0.65s ease, transform 0.85s cubic-bezier(0.45, 0, 0.2, 1), filter 0.55s ease;
-      filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.22));
+      filter: drop-shadow(0 28px 56px rgba(0, 0, 0, 0.28));
+      animation: coverCardIn 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
     }
 
-    .invite-scene.is-flyout {
-      opacity: 0;
-      transform: translateY(-12vh) scale(1.06);
-      filter: blur(8px);
-    }
-
-    .invite-flap {
-      position: relative;
-      width: 100%;
-      padding: clamp(2.4rem, 9vw, 3.85rem) 1.5rem clamp(3.1rem, 12vw, 4.9rem);
-      background: linear-gradient(175deg, rgba(255, 255, 255, 0.14) 0%, rgba(0, 0, 0, 0.06) 100%);
-      clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow:
-        0 18px 42px rgba(0, 0, 0, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.28),
-        inset 0 -20px 40px rgba(0, 0, 0, 0.04);
-      transform-origin: 50% 100%;
-      transition: transform 0.95s cubic-bezier(0.33, 1.15, 0.48, 1), opacity 0.65s ease;
-      animation: fadeSlideDown 0.9s ease 0.15s both;
-    }
-
-    .invite-divider {
-      width: min(9rem, 52%);
-      height: 1px;
-      margin: 0.9rem auto 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
-      opacity: 0.85;
-    }
-
-    .invite-scene.is-unsealed .invite-flap {
-      transform: translateY(-42%) scale(0.88);
-      opacity: 0;
-    }
-
-    .cover-title-split {
-      margin: 0;
-      font-family: var(--font-script);
-      font-weight: 400;
-      text-align: center;
-      color: #fff;
-      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .cover-title-split .ct-line {
-      display: block;
-      font-size: clamp(2.35rem, 9.5vw, 3.65rem);
-      line-height: 1.02;
-      letter-spacing: 0.02em;
-    }
-
-    .cover-title-split .ct-line--sub {
-      font-size: clamp(2.05rem, 8.5vw, 3.25rem);
-      margin-top: 0.06em;
-    }
-
-    .cover-title-split .ct-line--sub:empty {
-      display: none;
-    }
-
-    .invite-lower {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      margin-top: -1.4rem;
-      padding-bottom: 0.5rem;
-      z-index: 2;
-      animation: fadeSlideDown 0.95s ease 0.35s both;
-    }
-
-    .intro-seal-btn {
-      width: clamp(4.15rem, 18vw, 4.85rem);
-      height: clamp(4.15rem, 18vw, 4.85rem);
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      padding: 0.35rem;
-      background: radial-gradient(ellipse 95% 88% at 32% 22%, #f0e0d4, #d49a7c 32%, #b87355 58%, #8a513d 85%, #5c3428 100%);
-      box-shadow:
-        inset 0 5px 14px rgba(255, 255, 255, 0.38),
-        inset 0 -7px 16px rgba(0, 0, 0, 0.28),
-        0 12px 28px rgba(0, 0, 0, 0.28),
-        0 0 0 1px rgba(255, 255, 255, 0.15),
-        0 0 0 5px rgba(180, 130, 100, 0.12);
-      color: rgba(255, 250, 245, 0.95);
-      font-family: var(--font-sans);
-      font-weight: 600;
-      font-size: clamp(0.5rem, 1.95vw, 0.58rem);
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      line-height: 1;
-      transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        opacity 0.45s ease;
-      animation: sealPulse 2.8s ease-in-out infinite;
-    }
-
-    .intro-seal-btn:hover,
-    .intro-seal-btn:focus-visible {
-      transform: scale(1.06);
-      box-shadow:
-        inset 0 5px 14px rgba(255, 255, 255, 0.42),
-        inset 0 -6px 14px rgba(0, 0, 0, 0.24),
-        0 16px 36px rgba(0, 0, 0, 0.32),
-        0 0 0 1px rgba(255, 255, 255, 0.18);
-      outline: none;
-    }
-
-    .intro-seal-btn:focus-visible {
-      outline: 2px solid rgba(255, 255, 255, 0.55);
-      outline-offset: 4px;
-    }
-
-    .invite-scene.is-unsealed .intro-seal-btn {
-      opacity: 0;
-      transform: scale(0.12);
-      pointer-events: none;
-    }
-
-    @keyframes fadeSlideDown {
+    @keyframes coverCardIn {
       from {
         opacity: 0;
-        transform: translateY(-16px);
+        transform: translateY(18px) scale(0.97);
       }
       to {
         opacity: 1;
@@ -334,18 +201,131 @@
       }
     }
 
-    @keyframes sealPulse {
-      0%, 100% {
-        filter: drop-shadow(0 0 14px rgba(220, 170, 130, 0.4)) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
-      }
-      50% {
-        filter: drop-shadow(0 0 26px rgba(255, 230, 200, 0.55)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.15));
-      }
+    .invite-scene.is-unsealed:not(.is-flyout) {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+
+    .invite-scene.is-flyout {
+      opacity: 0;
+      transform: translateY(-14vh) scale(1.03);
+      filter: blur(10px);
+    }
+
+    .invite-card {
+      position: relative;
+      width: 100%;
+      padding: clamp(1.85rem, 6.2vw, 2.55rem) clamp(1.45rem, 4.8vw, 2rem) clamp(1.6rem, 5.2vw, 2.15rem);
+      border-radius: 22px;
+      background:
+        linear-gradient(148deg, rgba(255, 255, 255, 0.995) 0%, rgba(252, 248, 238, 0.99) 45%, rgba(255, 253, 248, 0.995) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.98) inset,
+        0 0 0 1px color-mix(in srgb, var(--palette-lemon) 35%, transparent),
+        0 32px 56px rgba(28, 24, 18, 0.22),
+        0 0 48px color-mix(in srgb, var(--palette-lilac) 15%, transparent);
+    }
+
+    .invite-card::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 15px;
+      border: 1px solid color-mix(in srgb, var(--sage) 28%, transparent);
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .invite-card::after {
+      content: "✧";
+      position: absolute;
+      top: 0.65rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.55rem;
+      letter-spacing: 0.45em;
+      color: color-mix(in srgb, var(--wax) 55%, var(--sage-deep));
+      opacity: 0.65;
+      pointer-events: none;
+      width: max-content;
+      text-indent: 0.45em;
+    }
+
+    .cover-title-split {
+      margin: 0.35rem 0 0.75rem;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    .cover-title-split .ct-line {
+      display: block;
+      font-family: var(--font-script);
+      font-size: clamp(2.5rem, 11vw, 3.45rem);
+      line-height: 1.02;
+      color: var(--wood);
+      letter-spacing: 0.02em;
+    }
+
+    .cover-title-split .ct-line--sub {
+      font-family: var(--font-sans);
+      font-size: clamp(0.68rem, 2.6vw, 0.78rem);
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 0.65rem;
+      line-height: 1.35;
+    }
+
+    .cover-title-split .ct-line--sub:empty {
+      display: none;
+    }
+
+    .invite-card__date {
+      margin: 0 0 1.35rem;
+      text-align: center;
+      font-family: var(--font-script);
+      font-size: clamp(1.35rem, 5vw, 1.65rem);
+      color: color-mix(in srgb, var(--sage-deep) 75%, var(--wood));
+    }
+
+    .invite-card__cta {
+      width: 100%;
+      margin: 0;
+      padding: 0.92rem 1.2rem;
+      border-radius: 999px;
+      border: 2px solid color-mix(in srgb, var(--wood) 88%, var(--sage-deep));
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: lowercase;
+      color: var(--cream);
+      background: linear-gradient(135deg, var(--wood) 0%, color-mix(in srgb, var(--wood) 75%, var(--sage-deep)) 100%);
+      box-shadow: 0 4px 18px rgba(45, 38, 28, 0.2);
+      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .invite-card__cta:hover {
+      background: transparent;
+      color: var(--wood);
+      box-shadow: 0 2px 12px rgba(45, 38, 28, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .invite-card__cta:focus-visible {
+      outline: 2px solid var(--sage-deep);
+      outline-offset: 3px;
+      background: transparent;
+      color: var(--wood);
     }
 
     .reveal {
       opacity: 0;
       transform: translateY(2rem);
+      overflow: visible;
       transition:
         opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
         transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
@@ -367,117 +347,342 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: clamp(1rem, 4vw, 2rem) clamp(0.65rem, 3vw, 1rem);
-      background: var(--sage);
+      padding: calc(1.35rem + env(safe-area-inset-top, 0px)) clamp(1rem, 4vw, 1.75rem) clamp(1.75rem + env(safe-area-inset-bottom, 0px));
+      padding-left: max(clamp(1rem, 4vw, 1.75rem), env(safe-area-inset-left, 0px));
+      padding-right: max(clamp(1rem, 4vw, 1.75rem), env(safe-area-inset-right, 0px));
+      background:
+        radial-gradient(1200px 520px at 12% -8%, color-mix(in srgb, var(--primary) 34%, transparent), transparent 58%),
+        radial-gradient(880px 440px at 108% 8%, color-mix(in srgb, var(--palette-lemon) 22%, transparent), transparent 52%),
+        radial-gradient(700px 380px at 50% 108%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 48%),
+        linear-gradient(
+          165deg,
+          color-mix(in srgb, var(--cream) 94%, var(--primary)) 0%,
+          var(--cream) 42%,
+          color-mix(in srgb, var(--cream) 88%, white) 100%
+        );
+    }
+
+    .hero-frame::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(12rem, 70vw);
+      height: 3px;
+      bottom: max(1.35rem, calc(0.65rem + env(safe-area-inset-bottom, 0px)));
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 999px;
+      opacity: 0.55;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        color-mix(in srgb, var(--primary) 55%, transparent),
+        transparent
+      );
+    }
+
+    .hero-motifs {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.22;
+    }
+
+    .hero-motif {
+      position: absolute;
+      opacity: 0.42;
+      color: var(--sage-deep);
+      filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.45));
+    }
+
+    .hero-motif svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-motif--1 { top: 10%; left: 5%; width: 30px; height: 30px; transform: rotate(-22deg) scale(1.08); color: color-mix(in srgb, var(--sage-deep) 80%, var(--palette-olive)); }
+    .hero-motif--2 { top: 18%; right: 7%; width: 26px; height: 26px; transform: rotate(12deg) scale(1.06); opacity: 0.4; color: var(--palette-petal); }
+    .hero-motif--3 { bottom: 26%; left: 8%; width: 34px; height: 34px; transform: rotate(35deg) scale(1.05); opacity: 0.38; color: color-mix(in srgb, var(--palette-lilac) 62%, var(--sage)); }
+    .hero-motif--4 { bottom: 20%; right: 6%; width: 28px; height: 28px; transform: rotate(-8deg) scale(1.06); color: color-mix(in srgb, var(--palette-sky) 58%, var(--sage-deep)); }
+    .hero-motif--5 { top: 44%; left: 3%; width: 24px; height: 24px; opacity: 0.38; transform: rotate(-35deg) scale(1.05); color: var(--palette-lemon); }
+    .hero-motif--6 { top: 52%; right: 4%; width: 32px; height: 32px; transform: rotate(18deg) scale(1.07); opacity: 0.4; color: var(--palette-petal); }
+    .hero-motif--7 { top: 72%; left: 14%; width: 22px; height: 22px; opacity: 0.36; color: var(--sage); }
+    .hero-motif--8 { top: 6%; left: 42%; width: 20px; height: 20px; opacity: 0.34; transform: rotate(8deg) scale(1.02); color: var(--palette-sky); }
+    .hero-motif--9 { top: 32%; right: 14%; width: 24px; height: 24px; opacity: 0.33; transform: rotate(-25deg); color: color-mix(in srgb, var(--palette-olive) 70%, var(--sage)); }
+    .hero-motif--10 { top: 58%; left: 22%; width: 18px; height: 18px; opacity: 0.3; transform: rotate(42deg); color: var(--palette-lilac); }
+    .hero-motif--11 { bottom: 8%; left: 38%; width: 26px; height: 26px; opacity: 0.32; transform: rotate(-15deg) scale(1.04); color: var(--palette-petal); }
+    .hero-motif--12 { top: 26%; left: 18%; width: 16px; height: 16px; opacity: 0.28; transform: rotate(55deg); color: var(--palette-lemon); }
+    .hero-motif--13 { bottom: 38%; right: 22%; width: 22px; height: 22px; opacity: 0.31; transform: rotate(-40deg); color: var(--sage-deep); }
+    .hero-motif--14 { top: 82%; right: 30%; width: 20px; height: 20px; opacity: 0.29; transform: rotate(22deg); color: color-mix(in srgb, var(--palette-petal) 55%, var(--sage)); }
+
+    @media (min-width: 540px) {
+      .hero-motif--5 { left: 8%; }
+      .hero-motif--6 { right: 10%; }
+      .hero-motif--9 { right: 18%; }
+      .hero-motif--12 { left: 24%; }
+    }
+
+    .hero-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.5;
+      mix-blend-mode: multiply;
     }
 
     .hero-wrap {
       position: relative;
+      z-index: 2;
       width: 100%;
-      max-width: min(34rem, 100%);
+      max-width: min(23rem, 100%);
       margin: 0 auto;
+      padding: clamp(1.35rem, 4.2vw, 2rem) clamp(1rem, 3.6vw, 1.5rem) clamp(1.25rem, 3.5vw, 1.75rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(1.05rem, 3vw, 1.35rem);
+      border-radius: clamp(24px, 5vw, 32px);
+      background: linear-gradient(
+        175deg,
+        rgba(255, 255, 255, 0.78) 0%,
+        color-mix(in srgb, rgba(255, 255, 255, 0.62) 85%, var(--cream)) 100%
+      );
+      border: 1px solid color-mix(in srgb, var(--primary) 16%, rgba(255, 255, 255, 0.9));
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.78) inset,
+        0 32px 64px rgba(52, 58, 38, 0.09),
+        0 0 0 1px color-mix(in srgb, var(--primary) 8%, transparent);
+      backdrop-filter: blur(14px) saturate(1.2);
+      -webkit-backdrop-filter: blur(14px) saturate(1.2);
     }
 
-    .hero-frame::before,
-    .hero-frame::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 38%;
+    @supports not ((backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))) {
+      .hero-wrap {
+        background: color-mix(in srgb, var(--cream) 94%, white);
+      }
+    }
+
+    .hero-top {
+      order: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      width: 100%;
+      position: relative;
       z-index: 1;
-      pointer-events: none;
+      padding-bottom: 0.1rem;
+      border-bottom: 1px solid var(--primary-line);
     }
 
-    .hero-frame::before {
-      top: 0;
-      background: linear-gradient(165deg, var(--sage-deep) 0%, transparent 70%);
-      clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
+    .hero-tag {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(0.62rem, 2.2vw, 0.74rem);
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--primary);
+      line-height: 1.2;
+      text-align: center;
     }
 
-    .hero-frame::after {
-      bottom: 0;
-      background: linear-gradient(15deg, var(--sage-dark) 0%, transparent 65%);
-      clip-path: polygon(0 35%, 50% 0, 100% 35%, 100% 100%, 0 100%);
+    .hero-kicker {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(0.78rem, 2.8vw, 0.92rem);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage-deep);
+      text-align: center;
+      line-height: 1.4;
+      padding: 0.42rem 0.85rem 0.48rem;
+      border-radius: 10px;
+      background: var(--primary-soft);
+      border: 1px solid var(--primary-line);
+    }
+
+    .hero-divider {
+      order: 2;
+      width: 100%;
+      max-width: 10rem;
+      height: 1.25rem;
+      color: color-mix(in srgb, var(--primary) 85%, var(--wax));
+      opacity: 0.88;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-divider svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-visual {
+      order: 1;
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0.35rem;
+    }
+
+    .hero-blob {
+      position: absolute;
+      width: 112%;
+      height: 96%;
+      left: 50%;
+      top: 51%;
+      transform: translate(-50%, -50%);
+      background:
+        radial-gradient(ellipse 68% 58% at 32% 38%, color-mix(in srgb, var(--primary) 38%, white), transparent 64%),
+        radial-gradient(ellipse 78% 62% at 72% 58%, color-mix(in srgb, var(--palette-petal) 30%, white), transparent 58%),
+        linear-gradient(
+          125deg,
+          color-mix(in srgb, var(--primary) 22%, white),
+          color-mix(in srgb, var(--palette-sky) 32%, white) 52%,
+          color-mix(in srgb, var(--palette-lemon) 24%, white)
+        );
+      border-radius: 46% 54% 42% 58% / 55% 48% 52% 45%;
+      opacity: 0.52;
+      filter: blur(0.55px);
+      z-index: 0;
+    }
+
+    @keyframes heroBlobMorph {
+      0%, 100% { border-radius: 46% 54% 42% 58% / 55% 48% 52% 45%; }
+      50% { border-radius: 52% 48% 55% 45% / 48% 52% 45% 55%; }
+    }
+
+    body.is-open .hero-blob {
+      animation: heroBlobMorph 18s ease-in-out infinite 1s;
+    }
+
+    .hero-mat {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: min(19rem, 88vw);
+      padding: 0.42rem;
+      background: linear-gradient(165deg, var(--cream) 0%, color-mix(in srgb, var(--cream) 86%, white) 100%);
+      border-radius: 1.2rem;
+      transform: rotate(-1.1deg);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.88) inset,
+        0 0 0 1px var(--primary-line),
+        0 24px 48px rgba(45, 52, 34, 0.11),
+        0 4px 14px rgba(45, 52, 34, 0.05);
     }
 
     .hero-photo {
       position: relative;
-      z-index: 2;
       width: 100%;
-      max-width: 100%;
-      border-radius: 2px;
+      border-radius: 0.95rem;
       overflow: hidden;
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
-      clip-path: var(--torn);
+      aspect-ratio: 3 / 4;
+      background: color-mix(in srgb, var(--primary) 10%, var(--cream));
     }
 
     .hero-photo img {
       display: block;
       width: 100%;
-      max-width: 100%;
-      height: auto;
-      vertical-align: middle;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 22%;
+      transform: scale(1.02);
     }
 
-    body.is-open .hero-photo {
-      animation: heroFloat 7s ease-in-out infinite 0.8s;
+    body.is-open .hero-mat {
+      animation: heroTilt 7s ease-in-out infinite 0.85s;
     }
 
-    @keyframes heroFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    @keyframes heroTilt {
+      0%, 100% { transform: rotate(-1.1deg) translateY(0); }
+      50% { transform: rotate(-0.85deg) translateY(-4px); }
     }
 
     .hero-names {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 18%;
+      order: 3;
       text-align: center;
-      z-index: 3;
-      pointer-events: none;
+      width: 100%;
+      padding: 0 0.2rem;
     }
 
     .hero-names .pair {
       font-family: var(--font-script);
-      font-size: clamp(2.5rem, 11vw, 4rem);
-      color: var(--white);
-      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+      font-size: clamp(2.75rem, 12vw, 4.1rem);
+      color: var(--wood);
       margin: 0;
-      line-height: 1;
-    }
-
-    .hero-names .wdate {
-      font-family: var(--font-script);
-      font-size: clamp(1.5rem, 6vw, 2.25rem);
-      color: var(--pearl);
-      margin: 0.35rem 0 0;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+      line-height: 1.02;
+      letter-spacing: 0.02em;
+      overflow-wrap: break-word;
+      padding: 0 0.2rem;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+      filter: drop-shadow(0 14px 28px var(--primary-glow));
     }
 
     .block {
-      padding: clamp(2.5rem, 8vw, 4rem) clamp(1.25rem, 5vw, 1.75rem);
+      padding-top: clamp(2.5rem, 8vw, 4rem);
+      padding-bottom: clamp(2.5rem, 8vw, 4rem);
+      padding-left: max(clamp(1.15rem, 5vw, 1.75rem), env(safe-area-inset-left, 0px));
+      padding-right: max(clamp(1.15rem, 5vw, 1.75rem), env(safe-area-inset-right, 0px));
+      overflow: visible;
     }
 
-    .block--cream { background: var(--cream); }
-    .block--blush {
+    .block--cream:not(.rsvp) {
       background: linear-gradient(
-        175deg,
-        color-mix(in srgb, var(--palette-lilac) 22%, white) 0%,
-        color-mix(in srgb, var(--palette-petal) 28%, white) 55%,
-        color-mix(in srgb, var(--palette-sky) 12%, white) 100%
+        to bottom,
+        var(--cream) 0%,
+        var(--cream) calc(100% - 2.75rem),
+        #fdf8f5 100%
       );
     }
+    .block--cream.rsvp {
+      background: linear-gradient(
+        to bottom,
+        var(--cream) 0%,
+        var(--cream) calc(100% - 2.5rem),
+        var(--white) 100%
+      );
+    }
+    .block--blush {
+      background:
+        linear-gradient(to bottom, color-mix(in srgb, var(--cream) 55%, #fdf8f5) 0%, transparent 2.5rem),
+        linear-gradient(to bottom, transparent calc(100% - 3.5rem), #f8f6f1 100%),
+        linear-gradient(
+          175deg,
+          #fdf8f5 0%,
+          color-mix(in srgb, var(--palette-lilac) 18%, white) 35%,
+          color-mix(in srgb, var(--palette-petal) 22%, white) 70%,
+          #faf3ec 100%
+        );
+    }
 
-    .inner { max-width: 26rem; margin: 0 auto; }
+    .inner {
+      max-width: 26rem;
+      margin: 0 auto;
+      width: 100%;
+    }
 
     .script-title {
       font-family: var(--font-script);
       font-size: clamp(2rem, 8vw, 2.75rem);
       text-align: center;
       margin: 0 0 1rem;
+      padding: 0 0.35rem;
       color: var(--wood);
+      overflow-wrap: break-word;
+      hyphens: manual;
     }
 
     .script-title--split {
@@ -497,6 +702,9 @@
       font-size: clamp(0.95rem, 3.2vw, 1.05rem);
       color: var(--ink-soft);
       margin: 0;
+      padding: 0 0.2rem;
+      line-height: 1.6;
+      overflow-wrap: break-word;
     }
 
     .lead + .lead {
@@ -508,6 +716,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 0.5rem;
       margin-top: 2rem;
+      margin-bottom: 0.35rem;
       text-align: center;
       font-size: 0.68rem;
       text-transform: uppercase;
@@ -531,93 +740,312 @@
       border-radius: 12px;
     }
 
-    .heart {
-      width: 2rem;
-      height: 2rem;
-      margin: 1.75rem auto 0;
-      background: var(--sage);
-      transform: rotate(-45deg);
+    #schedule {
+      overflow: visible;
+    }
+    #schedule .inner {
+      overflow: visible;
+    }
+
+    .program-days {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: clamp(0.45rem, 2.8vw, 0.85rem);
+      margin: 0 auto 0.15rem;
+      max-width: 17.5rem;
+      padding: 0 0.25rem;
+    }
+
+    .program-day-cell {
       position: relative;
-      border-radius: 2px;
+      flex: 1;
+      max-width: 3.85rem;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--white) 92%, var(--cream));
+      border: 1px solid rgba(139, 150, 73, 0.12);
+      box-shadow: 0 2px 14px rgba(62, 47, 38, 0.05);
     }
-    .heart::before, .heart::after {
-      content: "";
+
+    .program-day-cell__n {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1.05rem, 4.2vw, 1.28rem);
+      color: var(--wood);
+      position: relative;
+      z-index: 1;
+      line-height: 1;
+    }
+
+    .program-day-cell.is-wedding-day {
+      border-color: rgba(139, 150, 73, 0.22);
+      box-shadow: 0 4px 18px rgba(139, 150, 73, 0.1);
+    }
+
+    .program-day-cell__ring {
       position: absolute;
-      width: 2rem;
-      height: 2rem;
-      background: var(--sage);
-      border-radius: 50%;
-    }
-    .heart::before { top: -1rem; left: 0; }
-    .heart::after { left: 1rem; top: 0; }
-
-    .block--cream.reveal.is-visible .heart {
-      animation: heartBeat 1.8s ease-in-out 0.4s 2;
+      inset: -10%;
+      width: 120%;
+      height: 120%;
+      pointer-events: none;
+      z-index: 0;
+      color: var(--sage);
     }
 
-    @keyframes heartBeat {
-      0%, 100% { transform: rotate(-45deg) scale(1); }
-      18% { transform: rotate(-45deg) scale(1.08); }
-      32% { transform: rotate(-45deg) scale(1); }
+    .program-day-cell__ring path {
+      fill: none !important;
+      stroke: currentColor;
+      stroke-width: 2.85;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.9;
     }
 
+    /* Одна колоночная лента (зигзаг + сердце) на всех ширинах и в альбоме */
     .timeline-wrap {
       position: relative;
-      margin-top: 2rem;
-      margin-bottom: 0.5rem;
-      padding: 0.5rem 0 2rem;
-      min-height: 0;
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.75rem;
+      padding: 0.2rem 0 calc(3.25rem + 72px + env(safe-area-inset-bottom, 0px));
+      min-height: 240px;
+      overflow: visible;
+    }
+
+    .timeline-path-svg--mobile {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      transform: none;
+      z-index: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .timeline-path-svg--mobile path {
+      vector-effect: non-scaling-stroke;
+    }
+
+    .timeline-stage {
+      position: relative;
+      width: 100%;
+    }
+
+    .timeline-heart-scroller {
+      display: block;
+      position: absolute;
+      z-index: 3;
+      width: min(28vw, 56px);
+      height: auto;
+      aspect-ratio: 1;
+      pointer-events: none;
+      margin: 0;
+      left: 0;
+      top: 0;
+      will-change: transform;
+    }
+    /* Вынесено в body на мобиле — иначе режется любым предком с transform/overflow */
+    .timeline-heart-scroller.timeline-heart--portal {
+      position: fixed !important;
+      left: 0 !important;
+      top: 0 !important;
+      z-index: 180;
+      pointer-events: none;
+      overflow: visible !important;
+      clip-path: none;
+    }
+
+    /* Плавное кольцо-указатель (только мышь на ПК; сенсор не трогаем) */
+    .smooth-cursor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      margin: 0;
+      border-radius: 50%;
+      box-sizing: border-box;
+      border: 1.5px solid color-mix(in srgb, var(--sage) 50%, rgba(255, 255, 255, 0.35));
+      background: radial-gradient(circle at 45% 42%, rgba(240, 225, 106, 0.14), transparent 62%);
+      pointer-events: none;
+      z-index: 220;
+      opacity: 0;
+      transform: translate3d(-9999px, -9999px, 0) translate(-50%, -50%);
+      will-change: transform;
+      transition: opacity 0.35s ease;
+    }
+
+    @media (pointer: fine) {
+      body.has-smooth-cursor.is-open {
+        cursor: none;
+      }
+      body.has-smooth-cursor.is-open a,
+      body.has-smooth-cursor.is-open button,
+      body.has-smooth-cursor.is-open [role="button"],
+      body.has-smooth-cursor.is-open label.opt {
+        cursor: pointer;
+      }
+      body.has-smooth-cursor.is-open input,
+      body.has-smooth-cursor.is-open textarea {
+        cursor: text;
+      }
+    }
+
+    .timeline-heart-scroller svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible !important;
+      filter: none;
     }
 
     .timeline-svg {
-      display: block;
-      width: 100%;
-      max-width: 14rem;
-      margin: 0 auto;
       height: auto;
     }
 
+    .timeline-svg--desktop {
+      display: none !important;
+    }
+
     .timeline-items {
-      position: absolute;
-      inset: 0;
-      max-width: 26rem;
+      position: relative;
+      z-index: 2;
+      padding-left: 0.2rem;
+      padding-right: 0.2rem;
+      max-width: none;
       margin: 0 auto;
     }
 
     .titem {
-      position: absolute;
-      width: 46%;
-      font-size: 0.85rem;
-      transform: translateY(-50%);
+      position: relative !important;
+      top: auto !important;
+      display: block;
+      width: min(56%, calc(50% - 0.25rem)) !important;
+      max-width: min(56%, calc(50% - 0.25rem)) !important;
+      transform: none !important;
+      min-height: min(34vh, 13rem);
+      margin-bottom: clamp(4.15rem, 35vh, 17rem);
+      padding-bottom: 0.75rem;
+      border: none;
+      font-size: 0.92rem;
+    }
+
+    .titem__body {
+      min-width: 0;
+      padding-top: 0.35rem;
     }
 
     .titem .name {
       font-family: var(--font-script);
-      font-size: clamp(1.15rem, 4.2vw, 1.35rem);
+      font-size: clamp(1.65rem, 5vw, 3rem);
       color: var(--wood);
-      margin: 0 0 0.1rem;
-      line-height: 1.15;
+      margin: 0 0 0.2rem;
+      line-height: 1.12;
     }
     .titem .time {
-      font-weight: 600;
-      font-size: 0.75rem;
-      letter-spacing: 0.06em;
-      color: var(--sage-deep);
-      margin: 0 0 0.35rem;
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(0.95rem, 2.5vw, 1.45rem);
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+      margin: 0 0 0.5rem;
     }
     .titem .detail {
       font-family: var(--font-sans);
       font-weight: 300;
-      font-size: 0.72rem;
-      line-height: 1.45;
+      font-size: clamp(0.85rem, 2vw, 1.12rem);
+      line-height: 1.5;
       color: var(--ink-soft);
       margin: 0;
     }
-    .titem--left { left: 0; text-align: left; }
-    .titem--right { right: 0; text-align: right; }
+
+    .titem:last-child {
+      margin-bottom: clamp(2rem, 11vh, 5rem);
+    }
+
+    .titem--left {
+      margin-right: auto;
+      margin-left: 0;
+      text-align: left !important;
+      padding-right: 0.35rem;
+    }
+    .titem--right {
+      margin-left: auto;
+      margin-right: 0;
+      text-align: right !important;
+      padding-left: 0.35rem;
+    }
+
+    .venue-block {
+      margin: 0 auto 2.5rem;
+    }
+
+    .venue-highlight {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.35rem 1.25rem;
+      margin-bottom: 1.35rem;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, color-mix(in srgb, var(--cream) 88%, white) 100%);
+      border: 2px solid color-mix(in srgb, var(--sage) 28%, transparent);
+      box-shadow:
+        0 4px 0 color-mix(in srgb, var(--sage) 18%, transparent),
+        0 18px 40px rgba(62, 47, 38, 0.1);
+    }
+
+    .venue-highlight__icon {
+      flex-shrink: 0;
+      width: 2.75rem;
+      height: 2.75rem;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--sage) 14%, var(--white));
+      color: var(--sage-deep);
+    }
+
+    .venue-highlight__icon svg {
+      width: 1.35rem;
+      height: 1.35rem;
+      display: block;
+    }
+
+    .venue-highlight__eyebrow {
+      margin: 0 0 0.35rem;
+      font-family: var(--font-display);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--sage-deep);
+    }
+
+    .venue-highlight__title {
+      margin: 0 0 0.4rem;
+      font-size: clamp(1.2rem, 4vw, 1.45rem);
+      font-weight: 600;
+      color: var(--wood);
+      line-height: 1.2;
+    }
+
+    .venue-highlight__address {
+      margin: 0;
+      font-size: 0.94rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
 
     .venue-photo {
-      margin: 0 auto 2rem;
+      margin: 0 auto;
       border-radius: 14px;
       overflow: hidden;
       aspect-ratio: 4 / 3;
@@ -646,7 +1074,9 @@
     }
 
     .block--gifts {
-      background: linear-gradient(180deg, #f8f6f1 0%, var(--cream) 100%);
+      background:
+        linear-gradient(to bottom, #faf3ec 0%, transparent 2.75rem),
+        linear-gradient(180deg, #f8f6f1 0%, var(--cream) 100%);
       padding-top: clamp(2rem, 6vw, 3rem);
     }
 
@@ -707,7 +1137,13 @@
     }
 
     .block--note {
-      background: var(--cream);
+      background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--cream) 70%, #f8f6f1) 0%,
+        var(--cream) 2rem,
+        var(--cream) calc(100% - 2rem),
+        color-mix(in srgb, var(--cream) 75%, var(--white)) 100%
+      );
       padding-top: clamp(1.75rem, 5vw, 2.5rem);
       padding-bottom: clamp(1.75rem, 5vw, 2.5rem);
     }
@@ -738,46 +1174,25 @@
       line-height: 1.65;
     }
 
-    .venue-card {
-      margin: 0 0 2.75rem;
-      padding: 1.35rem 1.25rem;
-      border-radius: 16px;
-      background: var(--white);
-      box-shadow: 0 8px 28px rgba(62, 47, 38, 0.08);
-      border: 1px solid rgba(122, 133, 103, 0.2);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .venue-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 36px rgba(62, 47, 38, 0.11);
-    }
-
-    .venue-card h3 {
-      margin: 0 0 0.35rem;
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--sage-deep);
-    }
-    .venue-card p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
-
     @keyframes routeRing {
       0%, 100% {
         box-shadow:
-          0 0 0 5px rgba(245, 240, 232, 0.5),
+          0 0 0 3px rgba(245, 240, 232, 0.5),
           0 0 0 0 rgba(122, 133, 103, 0);
       }
       50% {
         box-shadow:
-          0 0 0 7px rgba(245, 240, 232, 0.32),
-          0 0 0 14px rgba(122, 133, 103, 0.1);
+          0 0 0 5px rgba(245, 240, 232, 0.32),
+          0 0 0 10px rgba(122, 133, 103, 0.1);
       }
     }
 
     .route-btn {
       display: block;
-      margin: 1rem auto 1.75rem;
-      width: min(8.75rem, 56vw);
+      position: relative;
+      z-index: 2;
+      margin: 0.35rem auto 0.75rem;
+      width: min(6.35rem, 40vw);
       aspect-ratio: 1;
       border-radius: 50%;
       border: none;
@@ -785,12 +1200,12 @@
       background: radial-gradient(circle at 50% 45%, var(--sage) 0%, var(--sage-dark) 100%);
       color: var(--cream);
       font-family: var(--font-sans);
-      font-size: 0.66rem;
+      font-size: 0.56rem;
       font-weight: 600;
-      letter-spacing: 0.03em;
-      line-height: 1.2;
-      padding: 0.45rem 0.55rem;
-      box-shadow: 0 0 0 5px rgba(245, 240, 232, 0.55);
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      padding: 0.32rem 0.42rem;
+      box-shadow: 0 0 0 3px rgba(245, 240, 232, 0.55);
       text-decoration: none;
       text-align: center;
       display: grid;
@@ -806,10 +1221,15 @@
 
     .subhead {
       font-family: var(--font-script);
-      font-size: 2rem;
+      font-size: clamp(1.65rem, 6vw, 2rem);
       margin: 0 0 1rem;
-      padding-top: 0.25rem;
+      padding: 0.25rem 0.35rem 0;
       color: var(--wood);
+      line-height: 1.15;
+    }
+
+    .subhead--center {
+      text-align: center;
     }
 
     .palette-row {
@@ -830,9 +1250,9 @@
       max-width: 4rem;
       border-radius: clamp(8px, 2vw, 12px);
       overflow: hidden;
-      background: rgba(255, 255, 255, 0.78);
+      background: color-mix(in srgb, var(--cream) 78%, white);
       box-shadow: 0 6px 20px rgba(62, 47, 38, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      border: 1px solid color-mix(in srgb, var(--cream) 45%, rgba(255, 255, 255, 0.85));
       gap: 0;
     }
 
@@ -858,7 +1278,11 @@
       margin: -1px 0 0;
       padding: calc(0.28rem + 1px) clamp(0.08rem, 1.2vw, 0.28rem) 0.38rem;
       text-align: center;
-      background: linear-gradient(180deg, #fff 0%, #faf8f4 100%);
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--cream) 72%, white) 0%,
+        var(--cream) 100%
+      );
       border-top: none;
     }
 
@@ -883,18 +1307,21 @@
     }
 
     .field { margin-bottom: 1.35rem; }
-    .field label.title {
+    .field label.title,
+    .field span.title {
       display: block;
       font-weight: 500;
       font-size: 0.88rem;
       margin-bottom: 0.5rem;
       color: var(--ink);
+      line-height: 1.4;
+      max-width: 100%;
     }
 
     .line-input {
       width: 100%;
       border: none;
-      border-bottom: 1px solid rgba(44, 36, 32, 0.35);
+      border-bottom: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
       padding: 0.5rem 0;
       font: inherit;
       background: transparent;
@@ -937,6 +1364,9 @@
     footer.site {
       text-align: center;
       padding: 2rem 1rem;
+      padding-left: max(1rem, env(safe-area-inset-left, 0px));
+      padding-right: max(1rem, env(safe-area-inset-right, 0px));
+      padding-bottom: max(2rem, calc(0.35rem + env(safe-area-inset-bottom, 0px)));
       font-size: 0.72rem;
       letter-spacing: 0.12em;
       color: var(--ink-soft);
@@ -944,36 +1374,33 @@
     }
 
     @media (max-width: 480px) {
+      #schedule.block {
+        padding-bottom: calc(clamp(2.5rem, 8vw, 4rem) + 2rem + env(safe-area-inset-bottom, 0px));
+      }
       .timeline-wrap {
-        min-height: 0;
-        padding-bottom: 0.5rem;
-      }
-      .timeline-svg {
-        display: none;
-      }
-      .timeline-items {
-        position: static;
+        margin-top: 0;
       }
       .titem {
-        position: static;
-        width: 100%;
+        min-height: min(36vh, 15rem);
+        margin-bottom: clamp(4.5rem, 37vh, 18.5rem);
+      }
+      .titem .name {
+        padding-right: 0;
+        font-size: clamp(2.1rem, 9vw, 3.15rem);
+        line-height: 1.05;
+      }
+      .titem .time {
+        font-size: clamp(1.18rem, 5.2vw, 1.48rem);
+        letter-spacing: 0.05em;
+        margin-bottom: 0.65rem;
+      }
+      .titem .detail {
         max-width: 100%;
-        transform: none;
-        margin-bottom: 1.6rem;
-        padding-bottom: 1.35rem;
-        border-bottom: 1px solid rgba(122, 133, 103, 0.22);
-        text-align: left !important;
+        overflow-wrap: break-word;
+        text-align: inherit !important;
+        font-size: clamp(0.98rem, 4vw, 1.14rem);
+        line-height: 1.48;
       }
-      .titem:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
-    }
-
-    @media (min-width: 481px) {
-      .timeline-wrap { min-height: 46rem; }
-      .titem { width: 48%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -981,16 +1408,13 @@
         transition-duration: 0.01ms;
         filter: none;
       }
-      body.is-open .hero-photo {
-        animation: none;
+      .cover-deco {
+        animation: none !important;
       }
-      .intro-seal-btn {
-        animation: none;
+      body.is-open .hero-blob {
+        animation: none !important;
       }
-      .cover-bg {
-        animation: none;
-      }
-      .cover-aurora {
+      body.is-open .hero-mat {
         animation: none;
       }
       .gifts-card::before {
@@ -999,13 +1423,7 @@
       .route-btn {
         animation: none;
       }
-      .block--cream.reveal.is-visible .heart {
-        animation: none;
-      }
-      .cover-title-split,
-      .invite-scene,
-      .invite-flap,
-      .invite-lower {
+      .invite-scene {
         animation: none;
         opacity: 1;
         transform: none;
@@ -1021,20 +1439,17 @@
 <body>
   <div class="cover" id="cover" aria-hidden="false">
     <div class="cover-bg" aria-hidden="true"></div>
-    <div class="cover-aurora" aria-hidden="true"></div>
     <div class="cover-vignette" aria-hidden="true"></div>
-    <div class="cover-frame" aria-hidden="true"></div>
+    <div class="cover-deco" aria-hidden="true"></div>
     <div class="cover-inner">
       <div class="invite-scene" id="intro-envelope">
-        <div class="invite-flap">
+        <div class="invite-card">
           <h1 id="cover-title" class="cover-title-split">
             <span class="ct-line" id="cover-line1">Приглашение</span>
             <span class="ct-line ct-line--sub" id="cover-line2">на свадьбу</span>
           </h1>
-          <div class="invite-divider" aria-hidden="true"></div>
-        </div>
-        <div class="invite-lower">
-          <button type="button" class="intro-seal-btn" id="open-invite">Нажмите</button>
+          <p class="invite-card__date" id="cover-peek-date">16 · 07 · 2026</p>
+          <button type="button" class="invite-card__cta" id="open-invite">открыть приглашение</button>
         </div>
       </div>
     </div>
@@ -1042,13 +1457,107 @@
 
   <main id="main">
     <section class="hero-frame">
+      <div class="hero-motifs" aria-hidden="true">
+        <div class="hero-motif hero-motif--1">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 20C12 14 9 10 6 8c4 1 6 5 6 12z" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 20c0-7 3-11 6-12-3 2-6 6-6 12z" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--2">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 18.8C8.8 16.5 6 14.2 6 11c0-2.3 1.8-3.8 3.8-3.8 1.5 0 2.7.8 3.2 2 .5-1.2 1.7-2 3.2-2 2 0 3.8 1.5 3.8 3.8 0 3.2-2.8 5.5-6 7.8z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--3">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 7.5l1.2 2.4 2.6.4-1.9 1.8.5 2.7L12 14l-2.4 1.3.5-2.7-1.9-1.8 2.6-.4 1.2-2.4z" stroke="currentColor" stroke-width="0.95" stroke-linejoin="round"/>
+            <circle cx="12" cy="12.2" r="1.1" fill="currentColor" opacity="0.35"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--4">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 5.5c2.5 3.5 2.5 7 0 10M12 5.5c-2.5 3.5-2.5 7 0 10" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/>
+            <path d="M12 8c-2.2 1.6-3.4 4-3.4 6.8M12 8c2.2 1.6 3.4 4 3.4 6.8" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" opacity="0.55"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--5">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M11.8 17.2c-2.6-2-4.2-3.8-4.2-6.2 0-1.6 1.2-2.6 2.6-2.6 1.1 0 1.9.5 2.3 1.3.4-.8 1.2-1.3 2.3-1.3 1.4 0 2.6 1 2.6 2.6 0 2.4-1.6 4.2-4.2 6.2l-.7.6-.7-.6z" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--6">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 8c-2 1.5-3.2 3.8-3.2 6.4 0 4 3.2 4.5 3.2 4.5s3.2-.5 3.2-4.5c0-2.6-1.2-4.9-3.2-6.4z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+            <path d="M12 11v6.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--7">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8.5 16.5c1-4 3-7 7-8.5-1.2 3.5-.8 6.8 1.2 9.8-3-1-6.2-1-8.2-1.3z" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--8">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 18.8C8.8 16.5 6 14.2 6 11c0-2.3 1.8-3.8 3.8-3.8 1.5 0 2.7.8 3.2 2 .5-1.2 1.7-2 3.2-2 2 0 3.8 1.5 3.8 3.8 0 3.2-2.8 5.5-6 7.8z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--9">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 7.5l1.2 2.4 2.6.4-1.9 1.8.5 2.7L12 14l-2.4 1.3.5-2.7-1.9-1.8 2.6-.4 1.2-2.4z" stroke="currentColor" stroke-width="0.95" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--10">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 20C12 14 9 10 6 8c4 1 6 5 6 12z" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 20c0-7 3-11 6-12-3 2-6 6-6 12z" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--11">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 8c-2 1.5-3.2 3.8-3.2 6.4 0 4 3.2 4.5 3.2 4.5s3.2-.5 3.2-4.5c0-2.6-1.2-4.9-3.2-6.4z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--12">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 5.5c2.5 3.5 2.5 7 0 10M12 5.5c-2.5 3.5-2.5 7 0 10" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--13">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M11.8 17.2c-2.6-2-4.2-3.8-4.2-6.2 0-1.6 1.2-2.6 2.6-2.6 1.1 0 1.9.5 2.3 1.3.4-.8 1.2-1.3 2.3-1.3 1.4 0 2.6 1 2.6 2.6 0 2.4-1.6 4.2-4.2 6.2l-.7.6-.7-.6z" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="hero-motif hero-motif--14">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8.5 16.5c1-4 3-7 7-8.5-1.2 3.5-.8 6.8 1.2 9.8-3-1-6.2-1-8.2-1.3z" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
       <div class="hero-wrap">
-        <div class="hero-photo">
-          <img src="static/hero.png" alt="" width="800" height="1200" loading="eager" decoding="async" />
+        <header class="hero-top">
+          <p class="hero-tag">Свадьба</p>
+          <p class="hero-kicker" id="hero-date">16 · 07 · 2026</p>
+        </header>
+        <div class="hero-visual">
+          <div class="hero-blob" aria-hidden="true"></div>
+          <div class="hero-mat">
+            <div class="hero-photo">
+              <img src="static/hero.png" alt="Алина и Роман" width="800" height="1200" loading="eager" decoding="async" />
+            </div>
+          </div>
+        </div>
+        <div class="hero-divider" aria-hidden="true">
+          <svg viewBox="0 0 120 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 14h38M74 14h38" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" opacity="0.55"/>
+            <path d="M46 14h28" stroke="currentColor" stroke-width="0.65" stroke-linecap="round" opacity="0.35"/>
+            <path d="M52 8c-8 4-8 12 0 16 8-4 8-12 0-16z" fill="currentColor" opacity="0.22"/>
+            <path d="M60 8c8 4 8 12 0 16" stroke="currentColor" stroke-width="0.85" stroke-linecap="round" opacity="0.4"/>
+            <circle cx="60" cy="14" r="2.2" stroke="currentColor" stroke-width="0.75" opacity="0.5"/>
+          </svg>
         </div>
         <div class="hero-names">
           <p class="pair" id="hero-pair">Алина &amp; Роман</p>
-          <p class="wdate" id="hero-date">16 · 07 · 2026</p>
         </div>
       </div>
     </section>
@@ -1066,40 +1575,100 @@
           Приглашаем Вас разделить с нами радость этого незабываемого дня.
         </p>
         <div class="calendar" id="calendar" aria-label="Дата свадьбы"></div>
-        <div class="heart" aria-hidden="true"></div>
       </div>
     </section>
 
-    <section class="block block--blush reveal reveal-delay-1">
+    <section class="block block--blush reveal reveal-delay-1" id="schedule" aria-label="Программа дня">
       <div class="inner">
-        <h2 class="script-title">Расписание</h2>
-        <div class="timeline-wrap">
-          <svg class="timeline-svg" viewBox="0 0 120 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M60 8 C 24 52, 96 96, 60 140 C 24 184, 96 228, 60 272 C 24 316, 96 360, 60 404 C 24 448, 96 492, 60 520"
-              fill="none" stroke="var(--sage)" stroke-width="2.2" stroke-linecap="round" />
-            <path d="M60 256 l-8 4 8 10 8-10z" fill="var(--sage)" stroke="var(--white)" stroke-width="1.2"/>
+        <div class="timeline-wrap" id="timeline-wrap">
+          <svg
+            class="timeline-path-svg timeline-path-svg--mobile"
+            viewBox="0 0 100 640"
+            preserveAspectRatio="none"
+            overflow="visible"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              id="timeline-trail-path"
+              d="M 50 8 L 50 630"
+              fill="none"
+              stroke="var(--sage)"
+              stroke-width="2.35"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
-          <div class="timeline-items" id="timeline-items"></div>
+          <div class="timeline-heart-scroller" id="timeline-heart-scroller" aria-hidden="true">
+            <svg viewBox="0 0 100 100" overflow="visible" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="timeline-heart-fill" x1="50" y1="8" x2="50" y2="94" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#eef4c8" />
+                  <stop offset="35%" stop-color="#b8c76a" />
+                  <stop offset="72%" stop-color="#7d8c42" />
+                  <stop offset="100%" stop-color="#4d5a28" />
+                </linearGradient>
+                <radialGradient id="timeline-heart-gleam" cx="32%" cy="28%" r="55%" fx="28%" fy="22%">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="0.45" />
+                  <stop offset="55%" stop-color="#fff" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <path
+                d="M50 92 C14 66 2 44 10 26 C16 10 38 8 50 34 C62 8 84 10 90 26 C98 44 86 66 50 92 Z"
+                fill="url(#timeline-heart-fill)"
+                stroke="#fffdfb"
+                stroke-width="2.1"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M50 92 C14 66 2 44 10 26 C16 10 38 8 50 34 C62 8 84 10 90 26 C98 44 86 66 50 92 Z"
+                fill="url(#timeline-heart-gleam)"
+              />
+            </svg>
+          </div>
+          <div class="timeline-stage">
+            <svg class="timeline-svg timeline-svg--desktop" viewBox="0 0 120 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M60 8 C 24 52, 96 96, 60 140 C 24 184, 96 228, 60 272 C 24 316, 96 360, 60 404 C 24 448, 96 492, 60 520"
+                fill="none" stroke="var(--sage)" stroke-width="2.2" stroke-linecap="round" />
+              <path d="M60 256 l-8 4 8 10 8-10z" fill="var(--sage)" stroke="var(--white)" stroke-width="1.2"/>
+            </svg>
+            <div class="timeline-items" id="timeline-items"></div>
+          </div>
+          <a
+            class="route-btn"
+            id="map-link"
+            href="https://yandex.ru/maps/?text=%D0%91%D0%B5%D0%BB%D0%B0%D1%8F+%D0%92%D0%B5%D1%80%D0%B0%D0%BD%D0%B4%D0%B0+%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%81%D0%BA%D0%B0%D1%8F+81%D0%90+%D0%B3%D1%80%D0%B8%D0%B1%D0%BE%D0%B5%D0%B4%D0%BE%D0%B2%D0%BE"
+            rel="noopener noreferrer"
+            target="_blank"
+          >Построить<br />маршрут</a>
         </div>
 
-        <a
-          class="route-btn"
-          id="map-link"
-          href="https://yandex.ru/maps/?text=%D0%91%D0%B5%D0%BB%D0%B0%D1%8F+%D0%92%D0%B5%D1%80%D0%B0%D0%BD%D0%B4%D0%B0+%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%81%D0%BA%D0%B0%D1%8F+81%D0%90+%D0%B3%D1%80%D0%B8%D0%B1%D0%BE%D0%B5%D0%B4%D0%BE%D0%B2%D0%BE"
-          rel="noopener noreferrer"
-          target="_blank"
-        >Построить<br />маршрут</a>
-
-        <figure class="venue-photo">
-          <img id="venue-photo" src="static/venue.png" alt="Белая Веранда" width="1200" height="900" loading="lazy" decoding="async" />
-        </figure>
-
-        <div class="venue-card">
-          <h3 id="venue-name">Белая Веранда</h3>
-          <p id="venue-address">Ул. Советская 81А, с. Грибоедово</p>
+        <div class="venue-block" id="venue">
+          <div class="venue-highlight">
+            <div class="venue-highlight__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 21c-4.2-3.5-7-6.4-7-10a5 5 0 0 1 10 0c0 3.6-2.8 6.5-7 10z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <circle cx="12" cy="10" r="1.6" fill="currentColor" opacity="0.85" />
+              </svg>
+            </div>
+            <div>
+              <p class="venue-highlight__eyebrow">Место проведения торжества</p>
+              <h3 class="venue-highlight__title" id="venue-name">Белая Веранда</h3>
+              <p class="venue-highlight__address" id="venue-address">Ул. Советская 81А, с. Грибоедово</p>
+            </div>
+          </div>
+          <figure class="venue-photo">
+            <img id="venue-photo" src="static/venue.png" alt="Белая Веранда" width="1200" height="900" loading="lazy" decoding="async" />
+          </figure>
         </div>
 
-        <h2 class="subhead" style="text-align:center">Dress Code</h2>
+        <h2 class="subhead subhead--center">Dress Code</h2>
         <p class="lead">
           Нам будет очень приятно, если вы поддержите цветовую палитру нашего праздника.
         </p>
@@ -1142,7 +1711,7 @@
           <div class="palette-chip">
             <div class="palette-chip__swatch" style="background: var(--palette-coffee)"></div>
             <div class="palette-chip__meta">
-              <div class="palette-chip__hex">#7E6149</div>
+              <div class="palette-chip__hex">#8C6F58</div>
               <div class="palette-chip__name">Coffee</div>
             </div>
           </div>
@@ -1176,7 +1745,7 @@
     <section class="block block--cream rsvp reveal reveal-delay-1" id="rsvp">
       <div class="inner">
         <h2 class="script-title">Подтверждение</h2>
-        <p class="lead">Пожалуйста, ответьте до удобной вам даты — данные уходят на сервер в формате JSON.</p>
+        <p class="lead">Пожалуйста, заполните форму заранее&nbsp;— так нам проще спланировать банкет и рассадку. Будем благодарны за ответ как можно раньше.</p>
         <form id="rsvp-form" novalidate>
           <div class="field">
             <label class="title" for="rf-name">Ваше имя и фамилия</label>
@@ -1250,6 +1819,53 @@
       }
       document.getElementById("open-invite").addEventListener("click", openInvite);
 
+      (function initSmoothCursor() {
+        if (window.matchMedia &&
+            (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+              !window.matchMedia("(pointer: fine)").matches))
+          return;
+        var el = document.createElement("div");
+        el.className = "smooth-cursor";
+        el.setAttribute("aria-hidden", "true");
+        document.body.appendChild(el);
+        document.body.classList.add("has-smooth-cursor");
+        var tx = window.innerWidth * 0.5;
+        var ty = window.innerHeight * 0.35;
+        var cx = tx;
+        var cy = ty;
+        var raf = 0;
+        function arm() {
+          if (!raf) raf = requestAnimationFrame(tick);
+        }
+        function tick() {
+          raf = 0;
+          var k = 0.26;
+          cx += (tx - cx) * k;
+          cy += (ty - cy) * k;
+          var open = document.body.classList.contains("is-open");
+          el.style.opacity = open ? "1" : "0";
+          el.style.transform =
+            "translate3d(" + cx + "px, " + cy + "px, 0) translate(-50%, -50%)";
+          if (open && (Math.abs(tx - cx) > 0.25 || Math.abs(ty - cy) > 0.25)) arm();
+        }
+        function onPtr(e) {
+          if (e.pointerType && e.pointerType !== "mouse") return;
+          tx = e.clientX;
+          ty = e.clientY;
+          arm();
+        }
+        document.addEventListener("pointermove", onPtr, { passive: true });
+        document.addEventListener("pointerdown", onPtr, { passive: true });
+        document.body.addEventListener("pointerleave", function (e) {
+          if (e.pointerType && e.pointerType !== "mouse") return;
+          el.style.opacity = "0";
+        });
+        var mo = new MutationObserver(function () {
+          if (document.body.classList.contains("is-open")) arm();
+        });
+        mo.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+      })();
+
       (function initReveal() {
         var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
         var nodes = document.querySelectorAll(".reveal");
@@ -1290,25 +1906,392 @@
         }
       }
 
+      var programRingSvg =
+        '<svg class="program-day-cell__ring" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<path d="M48 9.5c11.5.2 23.2 4.8 29.2 14.5 6.8 11 4.5 25.8-3.5 36.8-9 12.5-26.5 19.2-41.5 15.5C14.8 71.5 6.2 51.8 9.8 34 13 19 31 7.8 48 9.5z"/>' +
+        "</svg>";
+
+      function renderProgramDays(iso) {
+        var host = document.getElementById("program-days");
+        if (!host) return;
+        var d = iso ? new Date(iso + "T12:00:00") : new Date(2026, 6, 16);
+        host.innerHTML = "";
+        for (var i = -1; i <= 1; i++) {
+          var dd = new Date(d.getFullYear(), d.getMonth(), d.getDate() + i);
+          var cell = document.createElement("div");
+          cell.className = "program-day-cell" + (i === 0 ? " is-wedding-day" : "");
+          if (i === 0) cell.innerHTML = programRingSvg;
+          var num = document.createElement("span");
+          num.className = "program-day-cell__n";
+          num.textContent = String(dd.getDate());
+          cell.appendChild(num);
+          host.appendChild(cell);
+        }
+      }
+
+      function pathScreenYAtLength(path, dist) {
+        var len = path.getTotalLength();
+        if (!len) return 0;
+        var svg = path.ownerSVGElement;
+        if (!svg) return 0;
+        var d = Math.max(0, Math.min(len, dist));
+        var pt = path.getPointAtLength(d);
+        var p = svg.createSVGPoint();
+        p.x = pt.x;
+        p.y = pt.y;
+        var ctm = path.getScreenCTM();
+        if (!ctm) return 0;
+        return p.matrixTransform(ctm).y;
+      }
+
+      function lengthOnPathNearestScreenY(path, targetY, prevL) {
+        var len = path.getTotalLength();
+        if (!len) return 0;
+        var steps = 96;
+        var bestL = 0;
+        var bestDy = Infinity;
+        var i, L, dy;
+        for (i = 0; i <= steps; i++) {
+          L = (i / steps) * len;
+          dy = Math.abs(pathScreenYAtLength(path, L) - targetY);
+          if (dy < bestDy) {
+            bestDy = dy;
+            bestL = L;
+          }
+        }
+        var win = (len / steps) * 2.8;
+        var lo = Math.max(0, bestL - win);
+        var hi = Math.min(len, bestL + win);
+        for (i = 0; i < 28; i++) {
+          var m1 = lo + (hi - lo) / 3;
+          var m2 = hi - (hi - lo) / 3;
+          var d1 = Math.abs(pathScreenYAtLength(path, m1) - targetY);
+          var d2 = Math.abs(pathScreenYAtLength(path, m2) - targetY);
+          if (d1 < d2) hi = m2;
+          else lo = m1;
+        }
+        var globalL = (lo + hi) * 0.5;
+        var globalDy = Math.abs(pathScreenYAtLength(path, globalL) - targetY);
+
+        if (prevL == null || len < 24) return globalL;
+
+        var bandHalf = len * 0.15;
+        var bLo = Math.max(0, prevL - bandHalf);
+        var bHi = Math.min(len, prevL + bandHalf);
+        var localL = prevL;
+        var localDy = Math.abs(pathScreenYAtLength(path, prevL) - targetY);
+        for (i = 0; i <= 48; i++) {
+          L = bLo + (i / 48) * (bHi - bLo);
+          dy = Math.abs(pathScreenYAtLength(path, L) - targetY);
+          if (dy < localDy) {
+            localDy = dy;
+            localL = L;
+          }
+        }
+        var w2 = (bHi - bLo) / 48 * 3;
+        lo = Math.max(bLo, localL - w2);
+        hi = Math.min(bHi, localL + w2);
+        for (i = 0; i < 18; i++) {
+          var a1 = lo + (hi - lo) / 3;
+          var a2 = hi - (hi - lo) / 3;
+          var u1 = Math.abs(pathScreenYAtLength(path, a1) - targetY);
+          var u2 = Math.abs(pathScreenYAtLength(path, a2) - targetY);
+          if (u1 < u2) hi = a2;
+          else lo = a1;
+        }
+        var bandL = (lo + hi) * 0.5;
+        var bandDy = Math.abs(pathScreenYAtLength(path, bandL) - targetY);
+        if (bandDy <= globalDy + 14) return bandL;
+        return globalL;
+      }
+
+      function ensureMobileTimelineHeartParent() {
+        var heart = document.getElementById("timeline-heart-scroller");
+        if (!heart) return;
+        if (heart.parentNode !== document.body) document.body.appendChild(heart);
+        heart.classList.add("timeline-heart--portal");
+      }
+
+      function placeTimelineHeartAtLength(path, heart, wrap, lengthAlong) {
+        var len = path.getTotalLength();
+        if (!len || !heart || !wrap) return;
+        var L = Math.max(0, Math.min(len, lengthAlong));
+        var pt = path.getPointAtLength(L);
+        var svg = path.ownerSVGElement;
+        if (!svg) return;
+        var p = svg.createSVGPoint();
+        p.x = pt.x;
+        p.y = pt.y;
+        var ctm = path.getScreenCTM();
+        if (!ctm) return;
+        var scr = p.matrixTransform(ctm);
+        heart.style.position = "fixed";
+        heart.style.left = "0";
+        heart.style.top = "0";
+        heart.style.right = "auto";
+        heart.style.bottom = "auto";
+        // Остриё на линии — нижняя точка сердца (viewBox 0 0 100 100, tip Y ≈ 92)
+        var vbH = 100;
+        var vbMaxY = vbH;
+        var tipY = 92;
+        var tipNudge = (100 * (vbMaxY - tipY)) / vbH;
+        heart.style.transform =
+          "translate3d(" +
+          scr.x.toFixed(2) +
+          "px, " +
+          scr.y.toFixed(2) +
+          "px, 0) translate(-50%, calc(-100% + " +
+          tipNudge.toFixed(2) +
+          "%))";
+      }
+
+      var timelineHeartRafId = 0;
+      var heartViewportYSmooth = null;
+      var heartAlongL = null;
+
+      function scheduleTimelineHeartTick() {
+        if (timelineHeartRafId) return;
+        timelineHeartRafId = requestAnimationFrame(function () {
+          timelineHeartRafId = 0;
+          tickTimelineHeart();
+        });
+      }
+
+      function placeTimelineHeartOnPath(path, heart, wrap, scrollProgress) {
+        var len = path.getTotalLength();
+        if (!len || !heart || !wrap) return;
+        var t = scrollProgress == null ? 0.5 : Math.max(0, Math.min(1, scrollProgress));
+        placeTimelineHeartAtLength(path, heart, wrap, (1 - t) * len);
+      }
+
+      /** Конец пути = центр кнопки «Маршрут» (см. reflowMobileTimelinePath) */
+      function isHeartAtRouteButton(path, L, len) {
+        if (!path || len <= 0) return false;
+        var Luse = Math.max(0, Math.min(len, L));
+        var routeBtn = document.getElementById("map-link");
+        var svg = path.ownerSVGElement;
+        var pt = path.getPointAtLength(Luse);
+        var p = svg && svg.createSVGPoint();
+        if (!p || !svg) return Luse >= len * 0.99;
+        p.x = pt.x;
+        p.y = pt.y;
+        var ctm = path.getScreenCTM();
+        if (!ctm) return Luse >= len * 0.99;
+        var scr = p.matrixTransform(ctm);
+        if (routeBtn) {
+          var br = routeBtn.getBoundingClientRect();
+          if (br.width > 2 && br.height > 2) {
+            var bx = br.left + br.width * 0.5;
+            var by = br.top + br.height * 0.5;
+            var r = Math.max(br.width, br.height) * 0.55 + 18;
+            if ((scr.x - bx) * (scr.x - bx) + (scr.y - by) * (scr.y - by) <= r * r) return true;
+          }
+        }
+        return Luse >= len * 0.992;
+      }
+
+      function tickTimelineHeart() {
+        var path = document.getElementById("timeline-trail-path");
+        var heart = document.getElementById("timeline-heart-scroller");
+        var section = document.getElementById("schedule");
+        var wrap = document.getElementById("timeline-wrap");
+        if (!path || !heart || !section || !wrap) return;
+        ensureMobileTimelineHeartParent();
+        var len = path.getTotalLength();
+        if (!len) return;
+        var vh = window.visualViewport && window.visualViewport.height ? window.visualViewport.height : window.innerHeight || 1;
+        var rect = section.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > vh) {
+          heartViewportYSmooth = null;
+          heartAlongL = null;
+          heart.style.visibility = "hidden";
+          heart.style.opacity = "0";
+          return;
+        }
+        var vv = window.visualViewport;
+        var viewportMidY = vv && vv.height ? vv.offsetTop + vv.height * 0.5 : vh * 0.5;
+        heart.style.visibility = "visible";
+        heart.style.opacity = "1";
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          heartViewportYSmooth = null;
+          heartAlongL = null;
+          placeTimelineHeartOnPath(path, heart, wrap, 0.5);
+          return;
+        }
+        if (heartViewportYSmooth == null) heartViewportYSmooth = viewportMidY;
+        else heartViewportYSmooth += (viewportMidY - heartViewportYSmooth) * 0.11;
+        var targetL = lengthOnPathNearestScreenY(path, heartViewportYSmooth, heartAlongL);
+        if (heartAlongL == null) heartAlongL = targetL;
+        else if (Math.abs(targetL - heartAlongL) > len * 0.38) heartAlongL = targetL;
+        else heartAlongL += (targetL - heartAlongL) * 0.24;
+        if (isHeartAtRouteButton(path, heartAlongL, len)) {
+          heartViewportYSmooth = null;
+          heartAlongL = null;
+          heart.style.visibility = "hidden";
+          heart.style.opacity = "0";
+          return;
+        }
+        placeTimelineHeartAtLength(path, heart, wrap, heartAlongL);
+        var yResidual = Math.abs(viewportMidY - heartViewportYSmooth);
+        var lResidual = Math.abs(targetL - heartAlongL);
+        if (yResidual > 0.45 || lResidual > len * 0.00085) scheduleTimelineHeartTick();
+      }
+
+      function smoothCubicThroughPoints(pts, tension) {
+        var m = pts.length;
+        if (m < 2) return "";
+        var t = tension != null ? tension : 0.34;
+        var d = "M " + pts[0].x + " " + pts[0].y;
+        var i;
+        for (i = 0; i < m - 1; i++) {
+          var p1 = pts[i];
+          var p2 = pts[i + 1];
+          var p0 = i > 0 ? pts[i - 1] : { x: p1.x + (p1.x - p2.x), y: p1.y + (p1.y - p2.y) };
+          var p3 = i < m - 2 ? pts[i + 2] : { x: p2.x + (p2.x - p1.x), y: p2.y + (p2.y - p1.y) };
+          var cp1x = p1.x + (p2.x - p0.x) * t;
+          var cp1y = p1.y + (p2.y - p0.y) * t;
+          var cp2x = p2.x - (p3.x - p1.x) * t;
+          var cp2y = p2.y - (p3.y - p1.y) * t;
+          d += " C " + cp1x + " " + cp1y + " " + cp2x + " " + cp2y + " " + p2.x + " " + p2.y;
+        }
+        return d;
+      }
+
+      function buildMobileTrailPathDown(yCenters, endPt) {
+        var yTop = 8;
+        var yBottom = 630;
+        var xLeft = 2;
+        var xRight = 98;
+        var xCenter = 50;
+        var n = yCenters.length;
+        function xOpp(i) {
+          return i % 2 === 0 ? xRight : xLeft;
+        }
+        var end = endPt;
+        if (!end || end.x == null || end.y == null) {
+          end = { x: xCenter, y: yBottom };
+        } else {
+          end = {
+            x: Math.max(3, Math.min(97, end.x)),
+            y: Math.max(yTop + 2, Math.min(638, end.y)),
+          };
+        }
+        if (!n) return "M " + xCenter + " " + yTop + " L " + end.x + " " + end.y;
+        var knots = [{ x: xCenter, y: yTop }];
+        var i;
+        for (i = 0; i < n; i++) {
+          knots.push({ x: xOpp(i), y: yCenters[i] });
+        }
+        knots.push({ x: end.x, y: end.y });
+        var j;
+        for (j = 2; j < knots.length; j++) {
+          if (knots[j].y <= knots[j - 1].y + 1.5) {
+            knots[j].y = knots[j - 1].y + 1.5;
+          }
+        }
+        return smoothCubicThroughPoints(knots, 0.34);
+      }
+
+      function mobileTimelinePathD(n) {
+        if (!n || n < 1) return "M 50 8 L 50 630";
+        var topStart = 6;
+        var topEnd = 93;
+        var yTop = 8;
+        var yBottom = 630;
+        var yCenters = [];
+        var i;
+        for (i = 0; i < n; i++) {
+          var frac = (topStart + (topEnd - topStart) * (i / Math.max(n - 1, 1)) - topStart) / (topEnd - topStart);
+          yCenters.push(yTop + (yBottom - yTop) * frac);
+        }
+        return buildMobileTrailPathDown(yCenters);
+      }
+
+      function reflowMobileTimelinePath() {
+        var pathEl = document.getElementById("timeline-trail-path");
+        var tw = document.getElementById("timeline-wrap");
+        var wrap = document.getElementById("timeline-items");
+        if (!pathEl || !tw || !wrap) return;
+        var items = wrap.querySelectorAll(".titem");
+        var n = items.length;
+        if (!n) return;
+        var twRect = tw.getBoundingClientRect();
+        var h = twRect.height;
+        if (h < 20) return;
+        var yTop = 8;
+        var yBottom = 630;
+        var yCenters = [];
+        var i;
+        for (i = 0; i < n; i++) {
+          var r = items[i].getBoundingClientRect();
+          var cy = r.top + r.height * 0.5 - twRect.top;
+          var frac = cy / h;
+          if (frac < 0) frac = 0;
+          if (frac > 1) frac = 1;
+          yCenters.push(yTop + (yBottom - yTop) * frac);
+        }
+        var endPt = null;
+        var routeBtn = document.getElementById("map-link");
+        if (routeBtn && twRect.width > 8) {
+          var br = routeBtn.getBoundingClientRect();
+          var cx = ((br.left + br.width * 0.5 - twRect.left) / twRect.width) * 100;
+          var cyy = br.top + br.height * 0.5 - twRect.top;
+          var frEnd = cyy / h;
+          if (frEnd < 0) frEnd = 0;
+          if (frEnd > 1) frEnd = 1;
+          endPt = { x: cx, y: yTop + (yBottom - yTop) * frEnd };
+        }
+        pathEl.setAttribute("d", buildMobileTrailPathDown(yCenters, endPt));
+      }
+
       function placeTimeline(items) {
         var wrap = document.getElementById("timeline-items");
         wrap.innerHTML = "";
         var n = items.length;
-        var topStart = 2;
-        var topEnd = 88;
+        var pathEl = document.getElementById("timeline-trail-path");
+        if (pathEl && n > 0) {
+          pathEl.setAttribute("d", mobileTimelinePathD(n));
+        }
         for (var i = 0; i < n; i++) {
-          var pct = topStart + (topEnd - topStart) * (i / Math.max(n - 1, 1));
           var side = i % 2 === 0 ? "left" : "right";
           var div = document.createElement("div");
           div.className = "titem titem--" + (side === "left" ? "left" : "right");
-          div.style.top = pct + "%";
-          var detail = items[i].detail ? '<p class="detail">' + escapeHtml(items[i].detail) + '</p>' : '';
+          var detail = items[i].detail ? '<p class="detail">' + escapeHtml(items[i].detail) + "</p>" : "";
           div.innerHTML =
-            '<p class="name">' + escapeHtml(items[i].title) + '</p>' +
-            '<p class="time">' + escapeHtml(items[i].time) + '</p>' +
-            detail;
+            '<div class="titem__body">' +
+            '<p class="name">' +
+            escapeHtml(items[i].title) +
+            "</p>" +
+            '<p class="time">' +
+            escapeHtml(items[i].time) +
+            "</p>" +
+            detail +
+            "</div>";
           wrap.appendChild(div);
         }
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            reflowMobileTimelinePath();
+            scheduleTimelineHeartTick();
+          });
+        });
+      }
+
+      window.addEventListener("scroll", scheduleTimelineHeartTick, { passive: true });
+      window.addEventListener("resize", function () {
+        heartViewportYSmooth = null;
+        heartAlongL = null;
+        reflowMobileTimelinePath();
+        scheduleTimelineHeartTick();
+      });
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener("scroll", scheduleTimelineHeartTick, { passive: true });
+        window.visualViewport.addEventListener("resize", function () {
+          heartViewportYSmooth = null;
+          heartAlongL = null;
+          reflowMobileTimelinePath();
+          scheduleTimelineHeartTick();
+        });
       }
 
       function escapeHtml(s) {
@@ -1338,10 +2321,21 @@
           var pair = data.couple.name1 + " & " + data.couple.name2;
           document.getElementById("hero-pair").textContent = pair;
           document.getElementById("foot-couple").textContent = pair;
+          var himg = document.querySelector(".hero-photo img");
+          if (himg && data.couple.name1 && data.couple.name2) {
+            himg.alt = String(data.couple.name1).trim() + " и " + String(data.couple.name2).trim();
+          }
         }
         if (data.date) {
-          if (data.date.label) document.getElementById("hero-date").textContent = data.date.label;
+          if (data.date.label) {
+            document.getElementById("hero-date").textContent = data.date.label;
+            var cpd = document.getElementById("cover-peek-date");
+            if (cpd) cpd.textContent = data.date.label;
+          }
           renderCalendar(data.date.iso);
+          renderProgramDays(data.date.iso);
+        } else {
+          renderProgramDays("2026-07-16");
         }
         if (data.schedule && data.schedule.length) placeTimeline(data.schedule);
         if (data.venue) {
@@ -1365,6 +2359,7 @@
         .then(applyEvent)
         .catch(function () {
           renderCalendar("2026-07-16");
+          renderProgramDays("2026-07-16");
           placeTimeline([
             { time: "15:00", title: "Welcome", detail: "Прохладительные напитки, легкая обстановка и знакомства" },
             { time: "15:30", title: "Церемония", detail: "Вы станете свидетелями рождения новой семьи" },
@@ -1432,6 +2427,9 @@
             st.classList.add("is-error");
           });
       });
+
+      window.addEventListener("load", scheduleTimelineHeartTick);
+      scheduleTimelineHeartTick();
     })();
   </script>
 </body>
