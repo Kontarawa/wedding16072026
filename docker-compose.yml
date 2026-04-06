@@ -7,6 +7,11 @@ services:
       - "1606:1606"
     environment:
       PORT: "1606"
+      # For HTTPS inside the container, mount certs and set:
+      # TLS_CERT_FILE: /certs/fullchain.pem
+      # TLS_KEY_FILE: /certs/privkey.pem
+      # Then change healthcheck URL to https (and add --no-check-certificate for self-signed).
+      RSVP_LOG_FILE: /tmp/rsvp-submissions.jsonl
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:1606/health"]
       interval: 30s
