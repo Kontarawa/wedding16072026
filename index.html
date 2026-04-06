@@ -144,8 +144,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: clamp(1rem, 4vw, 2rem);
+      padding: clamp(1rem, 4vw, 2rem) clamp(0.65rem, 3vw, 1rem);
       background: var(--sage);
+    }
+
+    .hero-wrap {
+      position: relative;
+      width: 100%;
+      max-width: min(34rem, 100%);
+      margin: 0 auto;
     }
 
     .hero-frame::before,
@@ -174,7 +181,8 @@
     .hero-photo {
       position: relative;
       z-index: 2;
-      width: min(22rem, 88vw);
+      width: 100%;
+      max-width: 100%;
       border-radius: 2px;
       overflow: hidden;
       box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
@@ -184,6 +192,7 @@
     .hero-photo img {
       display: block;
       width: 100%;
+      max-width: 100%;
       height: auto;
       vertical-align: middle;
     }
@@ -232,11 +241,27 @@
       color: var(--wood);
     }
 
+    .script-title--split {
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+    }
+    .script-title--split .line {
+      display: block;
+    }
+    .script-title--split .line:last-child {
+      font-size: 1.12em;
+      margin-top: 0.12em;
+    }
+
     .lead {
       text-align: center;
       font-size: clamp(0.95rem, 3.2vw, 1.05rem);
       color: var(--ink-soft);
       margin: 0;
+    }
+
+    .lead + .lead {
+      margin-top: 1rem;
     }
 
     .calendar {
@@ -291,7 +316,7 @@
       position: relative;
       margin-top: 2rem;
       padding: 0.5rem 0 2rem;
-      min-height: 28rem;
+      min-height: 0;
     }
 
     .timeline-svg {
@@ -318,19 +343,46 @@
 
     .titem .name {
       font-family: var(--font-script);
-      font-size: 1.35rem;
+      font-size: clamp(1.15rem, 4.2vw, 1.35rem);
       color: var(--wood);
-      margin: 0 0 0.15rem;
-      line-height: 1.1;
+      margin: 0 0 0.1rem;
+      line-height: 1.15;
     }
     .titem .time {
-      font-weight: 500;
-      letter-spacing: 0.04em;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: var(--sage-deep);
+      margin: 0 0 0.35rem;
+    }
+    .titem .detail {
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-size: 0.72rem;
+      line-height: 1.45;
       color: var(--ink-soft);
       margin: 0;
     }
     .titem--left { left: 0; text-align: left; }
     .titem--right { right: 0; text-align: right; }
+
+    .venue-photo {
+      margin: 0 0 1.25rem;
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      box-shadow: 0 10px 32px rgba(62, 47, 38, 0.12);
+      border: 1px solid rgba(122, 133, 103, 0.18);
+      max-width: 100%;
+    }
+
+    .venue-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 38%;
+      display: block;
+    }
 
     .venue-card {
       margin-top: 1.5rem;
@@ -448,8 +500,37 @@
       background: var(--white);
     }
 
-    @media (min-width: 640px) {
-      .hero-photo { width: min(24rem, 80vw); }
+    @media (max-width: 480px) {
+      .timeline-wrap {
+        min-height: 0;
+        padding-bottom: 0.5rem;
+      }
+      .timeline-svg {
+        display: none;
+      }
+      .timeline-items {
+        position: static;
+      }
+      .titem {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        transform: none;
+        margin-bottom: 1.6rem;
+        padding-bottom: 1.35rem;
+        border-bottom: 1px solid rgba(122, 133, 103, 0.22);
+        text-align: left !important;
+      }
+      .titem:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    @media (min-width: 481px) {
+      .timeline-wrap { min-height: 46rem; }
+      .titem { width: 48%; }
     }
   </style>
 </head>
@@ -464,7 +545,7 @@
 
   <main id="main">
     <section class="hero-frame">
-      <div style="position: relative;">
+      <div class="hero-wrap">
         <div class="hero-photo">
           <img src="static/hero.png" alt="" width="800" height="1200" loading="eager" decoding="async" />
         </div>
@@ -477,9 +558,15 @@
 
     <section class="block block--cream">
       <div class="inner">
-        <h2 class="script-title">Дорогие гости!</h2>
+        <h2 class="script-title script-title--split">
+          <span class="line">Дорогой</span>
+          <span class="line">Гость!</span>
+        </h2>
         <p class="lead">
-          Мы очень хотим сделать этот день особенным и будем счастливы разделить с вами наше торжество.
+          Мы рады сообщить Вам, что 16.07.2026 состоится самое главное торжество в нашей жизни&nbsp;— день нашей свадьбы!
+        </p>
+        <p class="lead">
+          Приглашаем Вас разделить с нами радость этого незабываемого дня.
         </p>
         <div class="calendar" id="calendar" aria-label="Дата свадьбы"></div>
         <div class="heart" aria-hidden="true"></div>
@@ -499,6 +586,10 @@
         </div>
 
         <a class="route-btn" id="map-link" href="#" rel="noopener noreferrer" target="_blank">Построить<br />маршрут</a>
+
+        <figure class="venue-photo">
+          <img id="venue-photo" src="static/venue.png" alt="Белая Веранда" width="1200" height="900" loading="lazy" decoding="async" />
+        </figure>
 
         <div class="venue-card">
           <h3 id="venue-name">Белая Веранда</h3>
@@ -615,7 +706,11 @@
           var div = document.createElement("div");
           div.className = "titem titem--" + (side === "left" ? "left" : "right");
           div.style.top = pct + "%";
-          div.innerHTML = '<p class="name">' + escapeHtml(items[i].title) + '</p><p class="time">' + escapeHtml(items[i].time) + '</p>';
+          var detail = items[i].detail ? '<p class="detail">' + escapeHtml(items[i].detail) + '</p>' : '';
+          div.innerHTML =
+            '<p class="name">' + escapeHtml(items[i].title) + '</p>' +
+            '<p class="time">' + escapeHtml(items[i].time) + '</p>' +
+            detail;
           wrap.appendChild(div);
         }
       }
@@ -642,6 +737,11 @@
         if (data.venue) {
           document.getElementById("venue-name").textContent = data.venue.name;
           document.getElementById("venue-address").textContent = data.venue.address;
+          var vimg = document.getElementById("venue-photo");
+          if (vimg && data.venue.image) {
+            vimg.src = data.venue.image;
+            vimg.alt = data.venue.name || "Место проведения";
+          }
         }
         var q = data.map_query || (data.venue ? data.venue.name + " " + data.venue.address : "");
         if (q) {
@@ -656,11 +756,11 @@
         .catch(function () {
           renderCalendar("2026-07-16");
           placeTimeline([
-            { time: "15:00", title: "Welcome" },
-            { time: "15:30", title: "Церемония" },
-            { time: "16:00", title: "Начало банкета" },
-            { time: "20:00", title: "Торт" },
-            { time: "21:00", title: "Финал" }
+            { time: "15:00", title: "Welcome", detail: "Прохладительные напитки, легкая обстановка и знакомства" },
+            { time: "15:30", title: "Церемония", detail: "Вы станете свидетелями рождения новой семьи" },
+            { time: "16:00", title: "Начало банкета", detail: "Самое время для вкусной еды, веселья и танцев" },
+            { time: "20:00", title: "Торт", detail: "Традиционное чаепитие с тортом" },
+            { time: "21:00", title: "Финал", detail: "Надеемся, что наш праздник запомнится вам как один из лучших дней!" }
           ]);
         });
 
