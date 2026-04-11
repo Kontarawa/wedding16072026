@@ -1,3 +1,3 @@
-module sv-invent
+module wedding-invitation
 
 go 1.22

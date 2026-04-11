@@ -1,20 +1,23 @@
 services:
-  web:
+  wedding:
     build: .
-    image: sv-invent:latest
+    image: wedding-invitation:latest
     restart: unless-stopped
     ports:
-      - "1606:1606"
+      - "8080:8080"
     environment:
-      PORT: "1606"
-      # For HTTPS inside the container, mount certs and set:
+      LISTEN_ADDR: ":8080"
+      DATA_DIR: /app/data
+      GUEST_DB: /app/data/guests.json
+      # Обязательно для записи анкет в таблицу: URL веб-приложения (…/exec), см. scripts/google-apps-script.gs
+      # Задайте в .env рядом с compose: GOOGLE_SHEETS_WEBAPP_URL=https://script.google.com/macros/s/.../exec
+      GOOGLE_SHEETS_WEBAPP_URL: "${GOOGLE_SHEETS_WEBAPP_URL:-}"
+      # Секрет для POST /wedding/invitation/make (генерация ссылок)
+      ADMIN_TOKEN: "${ADMIN_TOKEN:-}"
+      # Опционально: встроенный HTTPS в Go
       # TLS_CERT_FILE: /certs/fullchain.pem
       # TLS_KEY_FILE: /certs/privkey.pem
-      # Then change healthcheck URL to https (and add --no-check-certificate for self-signed).
-      RSVP_LOG_FILE: /tmp/rsvp-submissions.jsonl
-    healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:1606/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
+    volumes:
+      - ./data:/app/data
+    # volumes:
+    #   - ./certs:/certs:ro
