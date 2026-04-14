@@ -1,6 +1,4 @@
 :8443 {
-	tls internal {
-		protocols tls1.2
-	}
+	tls internal
 	reverse_proxy wedding:8080
 }
