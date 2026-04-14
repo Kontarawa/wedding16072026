@@ -1,4 +1,4 @@
-wedding.local {
+wedding.local:8443 {
 	tls internal
 	reverse_proxy wedding:8080
 }
