@@ -1,4 +1,6 @@
 147.45.225.74:8443 {
-	tls internal
+	tls internal {
+		protocols tls1.2
+	}
 	reverse_proxy wedding:8080
 }
