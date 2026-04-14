@@ -1,4 +1,4 @@
-147.45.225.74:8443 {
+:8443 {
 	tls internal {
 		protocols tls1.2
 	}
