@@ -2,3 +2,8 @@ wedding.local:8443 {
 	tls internal
 	reverse_proxy wedding:8080
 }
+
+:8080 {
+	# Plain HTTP endpoint (works by IP, no SNI/TLS)
+	reverse_proxy wedding:8080
+}

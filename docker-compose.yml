@@ -18,6 +18,7 @@ services:
     restart: unless-stopped
     ports:
       - "8443:8443"
+      - "8080:8080"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
     depends_on:
