@@ -12,8 +12,8 @@ WORKDIR /app
 COPY --from=build /out/wedding-invitation /app/wedding-invitation
 COPY static ./static
 ENV LISTEN_ADDR=:8080
-ENV DATA_DIR=/app/data
-ENV GUEST_DB=/app/data/guests.json
+ENV GOOGLE_SHEETS_WEBHOOK_URL=
+ENV GOOGLE_SHEETS_WEBHOOK_TOKEN=
 EXPOSE 8080
 VOLUME ["/app/data"]
 ENTRYPOINT ["/app/wedding-invitation"]

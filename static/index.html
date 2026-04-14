@@ -3,8 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Резерв: URL веб-приложения Google Apps Script (…/exec). Нужен, если на сервере не задан GOOGLE_SHEETS_WEBAPP_URL -->
-    <meta name="google-sheets-webapp" content="" />
     <title>Алина и Роман — свадьба 16 июля 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,6 +14,15 @@
   </head>
   <body>
     <div class="page">
+      <div id="submit-overlay" class="submit-overlay hidden" aria-hidden="true">
+        <div class="submit-overlay__card" role="status" aria-live="polite" aria-label="Отправляем анкету">
+          <div class="submit-overlay__spinner" aria-hidden="true"></div>
+          <div class="submit-overlay__text">
+            <div class="submit-overlay__title">Отправляем…</div>
+            <div class="submit-overlay__sub">Пожалуйста, подождите пару секунд</div>
+          </div>
+        </div>
+      </div>
       <div id="main-flow">
         <header class="hero">
           <div class="hero-visual">
@@ -370,13 +377,15 @@
 
             <form class="rsvp" id="rsvp-form" autocomplete="on">
               <div class="rsvp-panel">
-                <div class="field" id="name-fields">
-                  <label for="first_name">Имя</label>
-                  <input type="text" id="first_name" name="first_name" required maxlength="120" autocomplete="given-name" />
-                </div>
-                <div class="field">
-                  <label for="last_name">Фамилия</label>
-                  <input type="text" id="last_name" name="last_name" required maxlength="120" autocomplete="family-name" />
+                <div id="guest-name-fields">
+                  <div class="field" id="name-fields">
+                    <label for="first_name">Имя</label>
+                    <input type="text" id="first_name" name="first_name" required maxlength="120" autocomplete="given-name" />
+                  </div>
+                  <div class="field">
+                    <label for="last_name">Фамилия</label>
+                    <input type="text" id="last_name" name="last_name" required maxlength="120" autocomplete="family-name" />
+                  </div>
                 </div>
 
                 <div class="field">

@@ -1,16 +1,6 @@
 (function () {
   const base = "/wedding/invitation";
 
-  function invitationHash() {
-    const p = window.location.pathname.replace(/\/$/, "");
-    const parts = p.split("/").filter(Boolean);
-    const i = parts.indexOf("invitation");
-    if (i === -1) return "";
-    return parts[i + 1] || "";
-  }
-
-  const hash = invitationHash();
-
   const greetingEl = document.getElementById("greeting");
   const firstInput = document.getElementById("first_name");
   const lastInput = document.getElementById("last_name");
@@ -20,8 +10,17 @@
   const pageRoot = document.querySelector(".page");
   const thanks = document.getElementById("thanks-panel");
   const btnShare = document.getElementById("btn-share-invite");
+  const submitOverlay = document.getElementById("submit-overlay");
+  const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
 
-  function setGreeting(first, last) {
+  let isSubmitting = false;
+
+  function setGreeting(first, last, salutation) {
+    const sal = (salutation || "").trim();
+    if (sal) {
+      greetingEl.textContent = sal;
+      return;
+    }
     const f = (first || "").trim();
     const l = (last || "").trim();
     if (f || l) {
@@ -32,35 +31,23 @@
     }
   }
 
-  async function loadGuest() {
-    if (!hash) {
-      setGreeting("", "");
-      return;
-    }
-    try {
-      const res = await fetch(`${base}/api/guest/${encodeURIComponent(hash)}`, { headers: { Accept: "application/json" } });
-      if (!res.ok) return;
-      const data = await res.json();
-      const g = data && data.guest;
-      if (g && (g.first_name || g.last_name)) {
-        if (g.first_name) firstInput.value = g.first_name;
-        if (g.last_name) lastInput.value = g.last_name;
-        setGreeting(g.first_name, g.last_name);
-      } else {
-        setGreeting("", "");
-      }
-    } catch (_) {
-      setGreeting("", "");
-    }
-  }
-
   function showError(msg) {
     errEl.textContent = msg || "";
     errEl.classList.toggle("hidden", !msg);
   }
 
+  function setSubmitting(next) {
+    isSubmitting = !!next;
+    if (submitBtn) submitBtn.disabled = isSubmitting;
+    if (submitOverlay) {
+      submitOverlay.classList.toggle("hidden", !isSubmitting);
+      submitOverlay.setAttribute("aria-hidden", isSubmitting ? "false" : "true");
+    }
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
     showError("");
     const alcoholChoices = [...form.querySelectorAll('input[name="alcohol"]:checked')].map((el) => el.value);
     const payload = {
@@ -69,7 +56,6 @@
       attendance: form.querySelector('input[name="attendance"]:checked')?.value || "",
       transfer: form.querySelector('input[name="transfer"]:checked')?.value || "",
       alcohol: alcoholChoices.join(", "),
-      hash: hash || "",
       submitted_at: new Date().toISOString(),
     };
     if (!payload.first_name || !payload.last_name) {
@@ -80,8 +66,9 @@
       showError("Пожалуйста, ответьте на все вопросы.");
       return;
     }
-    const url = hash ? `${base}/answer/${encodeURIComponent(hash)}` : `${base}/answer`;
+    const url = `${base}/answer`;
     try {
+      setSubmitting(true);
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -92,33 +79,12 @@
         throw new Error(t || "Ошибка отправки");
       }
 
-      let serverSheetsConfigured = false;
-      try {
-        const cfgRes = await fetch(`${base}/api/sheets-config`, { headers: { Accept: "application/json" } });
-        if (cfgRes.ok) {
-          const cfg = await cfgRes.json();
-          serverSheetsConfigured = !!cfg.google_sheets_configured;
-        }
-      } catch (_) {
-        /* офлайн или статика без API */
-      }
-
-      if (!serverSheetsConfigured) {
-        const webapp = document.querySelector('meta[name="google-sheets-webapp"]')?.getAttribute("content")?.trim();
-        if (webapp) {
-          fetch(webapp, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify(payload),
-          }).catch(() => {});
-        }
-      }
-
       enterThanksState();
     } catch (err) {
       showError("Не удалось отправить форму. Попробуйте позже или напишите нам лично.");
       console.error(err);
+    } finally {
+      setSubmitting(false);
     }
   });
 
@@ -213,6 +179,7 @@
     });
   }
 
-  loadGuest();
+  // Имя и фамилия всегда вводятся вручную (без автозаполнения по ссылке).
+  setGreeting("", "", "");
   initReveal();
 })();
