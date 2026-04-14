@@ -5,9 +5,16 @@
 
 |                            | URL                                                                                                    |
 | -------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Приглашение (HTTPS, Caddy) | `https://<SERVER_IP>:8443/wedding/invitation/`                                                         |
+| Приглашение (HTTPS, Caddy) | `https://wedding.local/wedding/invitation/`                                                            |
 
-На проде замени `localhost` на IP или домен.
+Без домена используется self-signed TLS (Caddy `tls internal`). Нужно, чтобы клиент ходил по имени (SNI), поэтому добавь запись в hosts:
+
+- macOS/Linux: `/etc/hosts`
+- Windows: `C:\\Windows\\System32\\drivers\\etc\\hosts`
+
+Добавь строку:
+
+`<SERVER_IP> wedding.local`
 
 ## Сохранение ответов анкеты в Google Sheets
 
@@ -50,5 +57,5 @@
 docker compose up -d --build
 ```
 
-Порт: **8443** — Caddy с TLS (браузер может предупредить о сертификате).
+Порты: **80/443** — Caddy (на 443 будет предупреждение о сертификате, это ожидаемо).
 

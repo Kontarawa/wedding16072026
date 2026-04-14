@@ -17,7 +17,8 @@ services:
     image: caddy:2-alpine
     restart: unless-stopped
     ports:
-      - "8443:8443"
+      - "80:80"
+      - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
     depends_on:

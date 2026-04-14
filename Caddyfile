@@ -1,10 +1,4 @@
-{
-	debug
-}
-
-147.45.225.74:8443 {
-	bind 0.0.0.0
-	bind ::
+wedding.local {
 	tls internal
 	reverse_proxy wedding:8080
 }
