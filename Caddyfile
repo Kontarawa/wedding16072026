@@ -1,4 +1,10 @@
-:8443 {
+{
+	debug
+}
+
+147.45.225.74:8443 {
+	bind 0.0.0.0
+	bind ::
 	tls internal
 	reverse_proxy wedding:8080
 }
