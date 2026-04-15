@@ -102,13 +102,13 @@
 
       const res = await fetch(webhookUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        // Apps Script Web App часто отвечает редиректом, а fetch в браузере может
+        // превратить POST в GET при follow-redirect и дать ложную ошибку.
+        // Для вебхука нам важнее "доставить" запрос, чем читать ответ.
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!res.ok) {
-        const t = await res.text();
-        throw new Error(t || "Ошибка отправки");
-      }
 
       lastSubmission = payload;
       enterThanksState(payload);
