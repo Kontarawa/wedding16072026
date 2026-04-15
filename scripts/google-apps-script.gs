@@ -1,5 +1,4 @@
 const SHEET_NAME = "Responses";
-const TOKEN_PROP = "WEDDING_WEBHOOK_TOKEN";
 
 function doGet() {
   return json_(200, { ok: true, message: "Webhook is running. Use POST with JSON." });
@@ -8,11 +7,6 @@ function doGet() {
 function doPost(e) {
   try {
     const body = JSON.parse((e && e.postData && e.postData.contents) || "{}");
-    const want = String(PropertiesService.getScriptProperties().getProperty(TOKEN_PROP) || "").trim();
-    const got = String(body.token || "").trim();
-    if (!want || got !== want) {
-      return json_(401, { ok: false, error: "unauthorized" });
-    }
 
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
