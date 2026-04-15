@@ -3,12 +3,219 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="refresh" content="0; url=./static/index.html" />
-    <title>Алина и Роман — приглашение</title>
-    <link rel="canonical" href="./static/index.html" />
+    <title>Алина и Роман — свадьба 16 июля 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./static/theme.css" />
   </head>
   <body>
-    <p>Если вы не перенаправились автоматически, откройте <a href="./static/index.html">приглашение</a>.</p>
+    <div class="page">
+      <div id="submit-overlay" class="submit-overlay hidden" aria-hidden="true">
+        <div class="submit-overlay__card" role="status" aria-live="polite" aria-label="Отправляем анкету">
+          <div class="submit-overlay__spinner" aria-hidden="true"></div>
+          <div class="submit-overlay__text">
+            <div class="submit-overlay__title">Отправляем…</div>
+            <div class="submit-overlay__sub">Пожалуйста, подождите пару секунд</div>
+          </div>
+        </div>
+      </div>
+      <div id="main-flow">
+        <header class="hero">
+          <div class="hero-visual">
+            <img
+              class="hero-cover"
+              src="./static/couple.png"
+              width="640"
+              height="800"
+              alt="Алина и Роман"
+              decoding="async"
+              fetchpriority="high"
+            />
+            <div class="hero-visual__veil" aria-hidden="true"></div>
+            <div class="hero-visual__glow" aria-hidden="true"></div>
+            <div class="hero-card">
+              <p class="couple-names">Алина <span class="amp">&amp;</span> Роман</p>
+              <p class="eyebrow">приглашение</p>
+              <h1 id="greeting">Дорогой Гость!</h1>
+              <p class="lead">Мы рады пригласить вас разделить с нами один из самых важных дней — день нашей свадьбы.</p>
+              <p class="date-pill" aria-label="Дата свадьбы">16 · 07 · 2026</p>
+              <div class="countdown" aria-label="Сколько осталось до свадьбы">
+                <div class="countdown__k">До свадьбы осталось</div>
+                <div class="countdown__v" id="wedding-countdown">—</div>
+              </div>
+            </div>
+          </div>
+          <p class="scroll-hint">Листайте вниз</p>
+        </header>
+
+        <main>
+          <section class="section section--center section--schedule reveal" id="block-schedule">
+            <div class="date-strip-wrap">
+              <div class="date-strip" role="group" aria-label="Июль 2026: дни вокруг свадьбы">
+                <div class="date-strip__item">
+                  <span class="date-strip__dow">среда</span>
+                  <span class="date-strip__num">15</span>
+                  <span class="date-strip__month">июля</span>
+                </div>
+                <div class="date-strip__item date-strip__item--active" aria-current="date">
+                  <span class="date-strip__dow">четверг</span>
+                  <span class="date-strip__num">16</span>
+                  <span class="date-strip__month">июля</span>
+                </div>
+                <div class="date-strip__item">
+                  <span class="date-strip__dow">пятница</span>
+                  <span class="date-strip__num">17</span>
+                  <span class="date-strip__month">июля</span>
+                </div>
+              </div>
+            </div>
+
+            <h2>Программа дня</h2>
+            <!-- остальной контент остаётся в static/index.html; тут важен корневой index для Pages -->
+          </section>
+
+          <section class="section section--center section--venue reveal" id="block-venue">
+            <h2>Место проведения торжества</h2>
+            <article class="venue-card" aria-labelledby="venue-name">
+              <div class="venue-card__media">
+                <img
+                  src="./static/venue-veranda.png"
+                  alt="Белая Веранда — площадка для церемонии"
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="venue-card__body">
+                <p class="venue-card__place" id="venue-name">Белая Веранда</p>
+                <p class="venue-card__address">Ул. Советская 81А, с. Грибоедово</p>
+                <div class="venue-card__actions">
+                  <a
+                    class="btn btn-primary venue-card__btn"
+                    href="https://yandex.ru/maps/?text=%D0%A3%D0%BB.%20%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%81%D0%BA%D0%B0%D1%8F%2081%D0%90%2C%20%D1%81.%20%D0%93%D1%80%D0%B8%D0%B1%D0%BE%D0%B5%D0%B4%D0%BE%D0%B2%D0%BE"
+                    id="route-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Построить маршрут</a
+                  >
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="section section--form reveal" id="rsvp-section">
+            <h2>Анкета гостя</h2>
+            <p class="form-intro">
+              Пожалуйста, заполните форму заранее — так нам проще спланировать банкет и рассадку. Будем благодарны за ответ как можно
+              раньше.
+            </p>
+
+            <form class="rsvp" id="rsvp-form" autocomplete="on">
+              <div class="rsvp-panel">
+                <div id="guest-name-fields">
+                  <div class="field" id="name-fields">
+                    <label for="first_name">Имя</label>
+                    <input type="text" id="first_name" name="first_name" required maxlength="120" autocomplete="given-name" />
+                  </div>
+                  <div class="field">
+                    <label for="last_name">Фамилия</label>
+                    <input type="text" id="last_name" name="last_name" required maxlength="120" autocomplete="family-name" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <span class="label-like" id="label-attendance">Получится ли у вас присутствовать?</span>
+                  <div class="radio-group" role="radiogroup" aria-labelledby="label-attendance">
+                    <label class="radio"><input type="radio" name="attendance" value="Да" required /> Да</label>
+                    <label class="radio"><input type="radio" name="attendance" value="Нет" /> Нет</label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <span class="label-like" id="label-transfer">Потребуется ли вам трансфер?</span>
+                  <div class="radio-group" role="radiogroup" aria-labelledby="label-transfer">
+                    <label class="radio"><input type="radio" name="transfer" value="Нет" required /> Нет</label>
+                    <label class="radio"><input type="radio" name="transfer" value="Только до торжества" /> Только до торжества</label>
+                    <label class="radio"><input type="radio" name="transfer" value="Только после торжества" /> Только после торжества</label>
+                    <label class="radio"><input type="radio" name="transfer" value="До и после торжества" /> До и после торжества</label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <span class="label-like" id="label-alcohol">Какой алкоголь вы предпочитаете?</span>
+                  <div class="checkbox-group" role="group" aria-labelledby="label-alcohol">
+                    <label class="check"><input type="checkbox" name="alcohol" value="Красное вино" /> Красное вино</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Белое вино" /> Белое вино</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Шампанское" /> Шампанское</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Виски/коньяк" /> Виски / коньяк</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Водка" /> Водка</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Самогон" /> Самогон</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Не буду пить алкоголь" /> Не буду пить алкоголь</label>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-wide">Отправить</button>
+                <p id="form-error" class="form-error hidden"></p>
+              </div>
+            </form>
+          </section>
+        </main>
+      </div>
+
+      <section class="section hidden reveal" id="thanks-panel">
+        <div class="thanks">
+          <h2>Спасибо!</h2>
+          <p class="lead thanks-lead">
+            Мы очень ждём вас <strong>16 · 07 · 2026</strong> <strong>15:00</strong> на <strong>Белой Веранде</strong>,
+            с.&nbsp;Грибоедово.
+          </p>
+          <div class="countdown" aria-label="Сколько осталось до свадьбы">
+            <div class="countdown__k">До свадьбы осталось</div>
+            <div class="countdown__v" id="wedding-countdown-thanks">—</div>
+          </div>
+          <p class="lead thanks-lead">Анкета отправлена. Ниже — сводка ваших ответов.</p>
+
+          <div class="thanks-summary" id="thanks-summary" aria-label="Сводка анкеты">
+            <div class="thanks-summary__grid">
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Гость</div>
+                <div class="thanks-summary__v" id="summary-guest">—</div>
+              </div>
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Присутствие</div>
+                <div class="thanks-summary__v" id="summary-attendance">—</div>
+              </div>
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Трансфер</div>
+                <div class="thanks-summary__v" id="summary-transfer">—</div>
+              </div>
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Алкоголь</div>
+                <div class="thanks-summary__v" id="summary-alcohol">—</div>
+              </div>
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Отправлено</div>
+                <div class="thanks-summary__v" id="summary-submitted">—</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-mini">С любовью, Алина и Роман</p>
+    </div>
+
+    <script>
+      window.WEDDING_CONFIG = {
+        webhookUrl: "https://script.google.com/macros/s/AKfycbw79jR09DpJsQcwUnNf5BoLfri7Mj2tWMLB_RNSmSDrHGxl7mpFdD1pyXN7LNDgRc47/exec",
+        webhookToken: "wjdhqjlkQWD-PyBGnI-85EpEcmrZYDun18",
+      };
+    </script>
+    <script src="./static/app.js" defer></script>
   </body>
 </html>
-
