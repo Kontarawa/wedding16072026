@@ -1,6 +1,7 @@
 (function () {
   const cfg = (window && window.WEDDING_CONFIG) || {};
   const webhookUrl = (cfg.webhookUrl || "").trim();
+  const webhookToken = (cfg.webhookToken || "").trim();
   const useWebhook = true;
 
   const greetingEl = document.getElementById("greeting");
@@ -68,8 +69,8 @@
     e.preventDefault();
     if (isSubmitting) return;
     showError("");
-    if (!webhookUrl) {
-      showError("Не настроена отправка анкеты. Заполните WEDDING_CONFIG.webhookUrl в index.html.");
+    if (!webhookUrl || !webhookToken) {
+      showError("Не настроена отправка анкеты. Заполните WEDDING_CONFIG.webhookUrl и WEDDING_CONFIG.webhookToken в index.html.");
       return;
     }
     const alcoholChoices = [...form.querySelectorAll('input[name="alcohol"]:checked')].map((el) => el.value);
@@ -93,6 +94,7 @@
       setSubmitting(true);
       const body = useWebhook
         ? {
+            token: webhookToken,
             ...payload,
             hash: buildSubmissionHash(payload),
           }
