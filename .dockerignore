@@ -1,5 +1,0 @@
-.git
-data/*.json
-*.md
-deploy.sh
-docker-compose.yml

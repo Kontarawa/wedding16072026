@@ -1,5 +1,8 @@
 (function () {
-  const base = "/wedding/invitation";
+  const cfg = (window && window.WEDDING_CONFIG) || {};
+  const webhookUrl = (cfg.webhookUrl || "").trim();
+  const webhookToken = (cfg.webhookToken || "").trim();
+  const useWebhook = true;
 
   const greetingEl = document.getElementById("greeting");
   const firstInput = document.getElementById("first_name");
@@ -9,11 +12,28 @@
   const mainFlow = document.getElementById("main-flow");
   const pageRoot = document.querySelector(".page");
   const thanks = document.getElementById("thanks-panel");
-  const btnShare = document.getElementById("btn-share-invite");
   const submitOverlay = document.getElementById("submit-overlay");
   const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+  const summaryGuest = document.getElementById("summary-guest");
+  const summaryAttendance = document.getElementById("summary-attendance");
+  const summaryTransfer = document.getElementById("summary-transfer");
+  const summaryAlcohol = document.getElementById("summary-alcohol");
+  const summarySubmitted = document.getElementById("summary-submitted");
+  const countdownHeroEl = document.getElementById("wedding-countdown");
+  const countdownThanksEl = document.getElementById("wedding-countdown-thanks");
 
   let isSubmitting = false;
+  let lastSubmission = null;
+  let countdownTimer = null;
+
+  function buildSubmissionHash(payload) {
+    const raw = [payload.first_name, payload.last_name, payload.submitted_at].map((v) => (v || "").trim()).join("|");
+    let h = 0;
+    for (let i = 0; i < raw.length; i++) {
+      h = (h * 31 + raw.charCodeAt(i)) | 0;
+    }
+    return `h${Math.abs(h)}`;
+  }
 
   function setGreeting(first, last, salutation) {
     const sal = (salutation || "").trim();
@@ -49,6 +69,10 @@
     e.preventDefault();
     if (isSubmitting) return;
     showError("");
+    if (!webhookUrl || !webhookToken) {
+      showError("Не настроена отправка анкеты. Заполните WEDDING_CONFIG.webhookUrl и WEDDING_CONFIG.webhookToken в index.html.");
+      return;
+    }
     const alcoholChoices = [...form.querySelectorAll('input[name="alcohol"]:checked')].map((el) => el.value);
     const payload = {
       first_name: firstInput.value.trim(),
@@ -66,20 +90,28 @@
       showError("Пожалуйста, ответьте на все вопросы.");
       return;
     }
-    const url = `${base}/answer`;
     try {
       setSubmitting(true);
-      const res = await fetch(url, {
+      const body = useWebhook
+        ? {
+            token: webhookToken,
+            ...payload,
+            hash: buildSubmissionHash(payload),
+          }
+        : payload;
+
+      const res = await fetch(webhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(body),
       });
       if (!res.ok) {
         const t = await res.text();
         throw new Error(t || "Ошибка отправки");
       }
 
-      enterThanksState();
+      lastSubmission = payload;
+      enterThanksState(payload);
     } catch (err) {
       showError("Не удалось отправить форму. Попробуйте позже или напишите нам лично.");
       console.error(err);
@@ -88,61 +120,73 @@
     }
   });
 
-  function enterThanksState() {
+  function safeText(v) {
+    return (v ?? "").toString().trim();
+  }
+
+  function formatSubmittedAt(iso) {
+    const s = safeText(iso);
+    if (!s) return "—";
+    const d = new Date(s);
+    if (Number.isNaN(d.getTime())) return s;
+    return d.toLocaleString("ru-RU", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+  }
+
+  function renderSummary(payload) {
+    const p = payload || lastSubmission;
+    if (!p) return;
+    const guest = [safeText(p.first_name), safeText(p.last_name)].filter(Boolean).join(" ");
+    if (summaryGuest) summaryGuest.textContent = guest || "—";
+    if (summaryAttendance) summaryAttendance.textContent = safeText(p.attendance) || "—";
+    if (summaryTransfer) summaryTransfer.textContent = safeText(p.transfer) || "—";
+    if (summaryAlcohol) summaryAlcohol.textContent = safeText(p.alcohol) || "—";
+    if (summarySubmitted) summarySubmitted.textContent = formatSubmittedAt(p.submitted_at);
+  }
+
+  function enterThanksState(payload) {
     mainFlow.classList.add("hidden");
     thanks.classList.remove("hidden");
     thanks.classList.add("is-inview");
     if (pageRoot) pageRoot.classList.add("thanks-only");
+    renderSummary(payload);
+    startCountdown();
     thanks.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  /** Текст для «Поделиться»: что за мероприятие, когда (дата и время), где (без данных анкеты) */
-  function buildMemoText() {
-    const lines = [
-      "Свадьба Алины и Романа.",
-      "",
-      "Когда?",
-      "16 июля 2026 (четверг) 15:00.",
-      "",
-      "Где?",
-      "Белая Веранда, ул. Советская 81А, с. Грибоедово.",
-    ];
-    return lines.join("\n");
+  function formatDelta(ms) {
+    const totalSec = Math.max(0, Math.floor(ms / 1000));
+    const days = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = totalSec % 60;
+    const pad = (n) => String(n).padStart(2, "0");
+    if (days > 0) return `${days} дн ${pad(hours)}:${pad(mins)}:${pad(secs)}`;
+    return `${pad(hours)}:${pad(mins)}:${pad(secs)}`;
   }
 
-  function downloadTextFile(filename, text) {
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    a.rel = "noopener";
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
-  }
+  function startCountdown() {
+    // 16 июля 2026, 15:00 (локальное время браузера)
+    const weddingAt = new Date(2026, 6, 16, 15, 0, 0, 0);
 
-  if (btnShare) {
-    btnShare.addEventListener("click", async () => {
-      const text = buildMemoText();
-      const title = "Свадьба Алины и Романа";
+    if (countdownTimer) clearInterval(countdownTimer);
 
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title,
-            text,
-            url: window.location.href,
-          });
-          return;
-        } catch (err) {
-          if (err && err.name === "AbortError") return;
-        }
+    const tick = () => {
+      const now = new Date();
+      const ms = weddingAt.getTime() - now.getTime();
+      if (ms <= 0) {
+        if (countdownHeroEl) countdownHeroEl.textContent = "Уже началось!";
+        if (countdownThanksEl) countdownThanksEl.textContent = "Уже началось!";
+        if (countdownTimer) clearInterval(countdownTimer);
+        countdownTimer = null;
+        return;
       }
-      downloadTextFile("svadba-alina-i-roman.txt", text);
-    });
+      const txt = formatDelta(ms);
+      if (countdownHeroEl) countdownHeroEl.textContent = txt;
+      if (countdownThanksEl) countdownThanksEl.textContent = txt;
+    };
+
+    tick();
+    countdownTimer = setInterval(tick, 1000);
   }
 
   const heroImg = document.querySelector(".hero-cover");
@@ -181,5 +225,6 @@
 
   // Имя и фамилия всегда вводятся вручную (без автозаполнения по ссылке).
   setGreeting("", "", "");
+  startCountdown();
   initReveal();
 })();

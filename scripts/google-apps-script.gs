@@ -1,23 +1,3 @@
-/**
- * Wedding RSVP -> Google Sheets webhook
- *
- * Deploy: Apps Script -> Deploy -> New deployment -> Web app
- * - Execute as: Me
- * - Who has access: Anyone (or Anyone with link)
- *
- * The server sends JSON:
- * {
- *   "token": "...",
- *   "submitted_at": "2026-04-14T12:34:56Z",
- *   "first_name": "...",
- *   "last_name": "...",
- *   "attendance": "Да|Нет",
- *   "transfer": "...",
- *   "alcohol": "...",
- *   "hash": "..."
- * }
- */
-
 const SHEET_NAME = "Responses";
 const TOKEN_PROP = "WEDDING_WEBHOOK_TOKEN";
 

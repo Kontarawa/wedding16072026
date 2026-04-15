@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Montserrat:wght@400;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/static/theme.css" />
+    <link rel="stylesheet" href="./static/theme.css" />
   </head>
   <body>
     <div class="page">
@@ -28,7 +28,7 @@
           <div class="hero-visual">
             <img
               class="hero-cover"
-              src="/static/couple.png"
+              src="./static/couple.png"
               width="640"
               height="800"
               alt="Алина и Роман"
@@ -45,6 +45,10 @@
                 Мы рады пригласить вас разделить с нами один из самых важных дней — день нашей свадьбы.
               </p>
               <p class="date-pill" aria-label="Дата свадьбы">16 · 07 · 2026</p>
+              <div class="countdown" aria-label="Сколько осталось до свадьбы">
+                <div class="countdown__k">До свадьбы осталось</div>
+                <div class="countdown__v" id="wedding-countdown">—</div>
+              </div>
             </div>
           </div>
           <p class="scroll-hint">Листайте вниз</p>
@@ -277,7 +281,7 @@
             <article class="venue-card" aria-labelledby="venue-name">
               <div class="venue-card__media">
                 <img
-                  src="/static/venue-veranda.png"
+                  src="./static/venue-veranda.png"
                   alt="Белая Веранда — площадка для церемонии"
                   width="640"
                   height="480"
@@ -433,9 +437,35 @@
           <p class="lead thanks-lead">
             Мы очень ждём вас <strong>16 · 07 · 2026</strong>  <strong>15:00</strong> на <strong>Белой Веранде</strong>, с.&nbsp;Грибоедово.
           </p>
-          <p class="lead thanks-lead">Сохраните текст приглашения у себя — дата, время и место будут под рукой.</p>
-          <div class="actions thanks-actions">
-            <button type="button" class="btn btn-primary btn-wide" id="btn-share-invite">Сохранить</button>
+          <div class="countdown" aria-label="Сколько осталось до свадьбы">
+            <div class="countdown__k">До свадьбы осталось</div>
+            <div class="countdown__v" id="wedding-countdown-thanks">—</div>
+          </div>
+          <p class="lead thanks-lead">Анкета отправлена. Ниже — сводка ваших ответов.</p>
+
+          <div class="thanks-summary" id="thanks-summary" aria-label="Сводка анкеты">
+            <div class="thanks-summary__grid">
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Гость</div>
+                <div class="thanks-summary__v" id="summary-guest">—</div>
+              </div>
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Присутствие</div>
+                <div class="thanks-summary__v" id="summary-attendance">—</div>
+              </div>
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Трансфер</div>
+                <div class="thanks-summary__v" id="summary-transfer">—</div>
+              </div>
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Алкоголь</div>
+                <div class="thanks-summary__v" id="summary-alcohol">—</div>
+              </div>
+              <div class="thanks-summary__row">
+                <div class="thanks-summary__k">Отправлено</div>
+                <div class="thanks-summary__v" id="summary-submitted">—</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -443,6 +473,12 @@
       <p class="footer-mini">С любовью, Алина и Роман</p>
     </div>
 
-    <script src="/static/app.js" defer></script>
+    <script>
+      window.WEDDING_CONFIG = {
+        webhookUrl: "", // "https://script.google.com/macros/s/.../exec"
+        webhookToken: "", // WEDDING_WEBHOOK_TOKEN из Apps Script
+      };
+    </script>
+    <script src="./static/app.js" defer></script>
   </body>
 </html>
