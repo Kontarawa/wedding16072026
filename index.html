@@ -117,7 +117,6 @@
                     <div class="hs-item__desc">Прохладительные напитки, легкая обстановка и знакомства</div>
                   </div>
                 </article>
-
                 <article class="hs-item" role="listitem">
                   <div class="hs-item__rail">
                     <div class="hs-item__icon" aria-hidden="true">
@@ -157,7 +156,6 @@
                     <div class="hs-item__desc">Вы станете свидетелями рождения новой семьи</div>
                   </div>
                 </article>
-
                 <article class="hs-item" role="listitem">
                   <div class="hs-item__rail">
                     <div class="hs-item__icon" aria-hidden="true">
@@ -195,7 +193,6 @@
                     <div class="hs-item__desc">Самое время для вкусной еды, веселья и танцев</div>
                   </div>
                 </article>
-
                 <article class="hs-item" role="listitem">
                   <div class="hs-item__rail">
                     <div class="hs-item__icon" aria-hidden="true">
@@ -238,7 +235,6 @@
                     <div class="hs-item__desc">Традиционное чаепитие с тортом</div>
                   </div>
                 </article>
-
                 <article class="hs-item" role="listitem">
                   <div class="hs-item__rail">
                     <div class="hs-item__icon" aria-hidden="true">
@@ -304,6 +300,129 @@
                 </div>
               </div>
             </article>
+          </section>
+
+          <section class="section section--center section--dress reveal" id="block-dress">
+            <h2 class="dress-title">Dress Code</h2>
+            <p class="dress-lead">
+              Нам будет очень приятно, если вы поддержите цветовую палитру нашего праздника.
+            </p>
+            <div class="dress-swatches" aria-label="Палитра дресс-кода">
+              <article class="dress-swatch" style="--swatch: #f0e16a">
+                <div class="dress-swatch__color" aria-hidden="true"></div>
+                <div class="dress-swatch__meta">
+                  <span class="dress-swatch__hex">#F0E16A</span>
+                  <span class="dress-swatch__name">Lemon</span>
+                </div>
+              </article>
+              <article class="dress-swatch" style="--swatch: #d7c8e6">
+                <div class="dress-swatch__color" aria-hidden="true"></div>
+                <div class="dress-swatch__meta">
+                  <span class="dress-swatch__hex">#D7C8E6</span>
+                  <span class="dress-swatch__name">Lilac Mist</span>
+                </div>
+              </article>
+              <article class="dress-swatch" style="--swatch: #b3bfcb">
+                <div class="dress-swatch__color" aria-hidden="true"></div>
+                <div class="dress-swatch__meta">
+                  <span class="dress-swatch__hex">#B3BFCB</span>
+                  <span class="dress-swatch__name">Sky Haze</span>
+                </div>
+              </article>
+              <article class="dress-swatch" style="--swatch: #ebb2b1">
+                <div class="dress-swatch__color" aria-hidden="true"></div>
+                <div class="dress-swatch__meta">
+                  <span class="dress-swatch__hex">#EBB2B1</span>
+                  <span class="dress-swatch__name">Petal Blush</span>
+                </div>
+              </article>
+              <article class="dress-swatch dress-swatch--hero" style="--swatch: #8b9649">
+                <div class="dress-swatch__color" aria-hidden="true"></div>
+                <div class="dress-swatch__meta">
+                  <span class="dress-swatch__hex">#8B9649</span>
+                  <span class="dress-swatch__name">Olive Grove</span>
+                </div>
+              </article>
+              <article class="dress-swatch" style="--swatch: #8c6f58">
+                <div class="dress-swatch__color" aria-hidden="true"></div>
+                <div class="dress-swatch__meta">
+                  <span class="dress-swatch__hex">#8C6F58</span>
+                  <span class="dress-swatch__name">Coffee</span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section section--center reveal" id="block-gifts">
+            <h2>Пожелание по подаркам</h2>
+            <p>
+              Ваше присутствие — самый ценный подарок для нас. Если вы захотите дополнить его чем‑то ещё, мы будем благодарны за любой денежный вклад в наше совместное будущее.
+            </p>
+          </section>
+
+          <section class="section section--center reveal" id="block-note">
+            <h2>Небольшая просьба</h2>
+            <div class="note">
+              Будем благодарны, если вы воздержитесь от криков «Горько» на празднике, ведь поцелуй — это знак выражения чувств,
+              он не может быть по заказу.
+            </div>
+          </section>
+
+          <section class="section section--form reveal" id="rsvp-section">
+            <h2>Анкета гостя</h2>
+            <p class="form-intro">
+              Пожалуйста, заполните форму заранее — так нам проще спланировать банкет и рассадку. Будем благодарны за ответ как можно
+              раньше.
+            </p>
+
+            <form class="rsvp" id="rsvp-form" autocomplete="on">
+              <div class="rsvp-panel">
+                <div id="guest-name-fields">
+                  <div class="field" id="name-fields">
+                    <label for="first_name">Имя</label>
+                    <input type="text" id="first_name" name="first_name" required maxlength="120" autocomplete="given-name" />
+                  </div>
+                  <div class="field">
+                    <label for="last_name">Фамилия</label>
+                    <input type="text" id="last_name" name="last_name" required maxlength="120" autocomplete="family-name" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <span class="label-like" id="label-attendance">Получится ли у вас присутствовать?</span>
+                  <div class="radio-group" role="radiogroup" aria-labelledby="label-attendance">
+                    <label class="radio"><input type="radio" name="attendance" value="Да" required /> Да</label>
+                    <label class="radio"><input type="radio" name="attendance" value="Нет" /> Нет</label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <span class="label-like" id="label-transfer">Потребуется ли вам трансфер?</span>
+                  <div class="radio-group" role="radiogroup" aria-labelledby="label-transfer">
+                    <label class="radio"><input type="radio" name="transfer" value="Нет" required /> Нет</label>
+                    <label class="radio"><input type="radio" name="transfer" value="Только до торжества" /> Только до торжества</label>
+                    <label class="radio"><input type="radio" name="transfer" value="Только после торжества" /> Только после торжества</label>
+                    <label class="radio"><input type="radio" name="transfer" value="До и после торжества" /> До и после торжества</label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <span class="label-like" id="label-alcohol">Какой алкоголь вы предпочитаете?</span>
+                  <div class="checkbox-group" role="group" aria-labelledby="label-alcohol">
+                    <label class="check"><input type="checkbox" name="alcohol" value="Красное вино" /> Красное вино</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Белое вино" /> Белое вино</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Шампанское" /> Шампанское</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Виски/коньяк" /> Виски / коньяк</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Водка" /> Водка</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Самогон" /> Самогон</label>
+                    <label class="check"><input type="checkbox" name="alcohol" value="Не буду пить алкоголь" /> Не буду пить алкоголь</label>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-wide">Отправить</button>
+                <p id="form-error" class="form-error hidden"></p>
+              </div>
+            </form>
           </section>
         </main>
       </div>
