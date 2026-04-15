@@ -3,11 +3,346 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="refresh" content="0; url=./static/index.html" />
-    <title>Алина и Роман — приглашение</title>
-    <link rel="canonical" href="./static/index.html" />
+    <title>Алина и Роман — свадьба 16 июля 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./static/theme.css" />
   </head>
   <body>
-    <p>Если вы не перенаправились автоматически, откройте <a href="./static/index.html">приглашение</a>.</p>
+    <div class="page">
+      <div id="submit-overlay" class="submit-overlay hidden" aria-hidden="true">
+        <div class="submit-overlay__card" role="status" aria-live="polite" aria-label="Отправляем анкету">
+          <div class="submit-overlay__spinner" aria-hidden="true"></div>
+          <div class="submit-overlay__text">
+            <div class="submit-overlay__title">Отправляем…</div>
+            <div class="submit-overlay__sub">Пожалуйста, подождите пару секунд</div>
+          </div>
+        </div>
+      </div>
+      <div id="main-flow">
+        <header class="hero">
+          <div class="hero-visual">
+            <img
+              class="hero-cover"
+              src="./static/couple.png"
+              width="640"
+              height="800"
+              alt="Алина и Роман"
+              decoding="async"
+              fetchpriority="high"
+            />
+            <div class="hero-visual__veil" aria-hidden="true"></div>
+            <div class="hero-visual__glow" aria-hidden="true"></div>
+            <div class="hero-card">
+              <p class="couple-names">Алина <span class="amp">&amp;</span> Роман</p>
+              <p class="eyebrow">приглашение</p>
+              <h1 id="greeting">Дорогой Гость!</h1>
+              <p class="lead">
+                Мы рады пригласить вас разделить с нами один из самых важных дней — день нашей свадьбы.
+              </p>
+              <p class="date-pill" aria-label="Дата свадьбы">16 · 07 · 2026</p>
+            </div>
+          </div>
+          <p class="scroll-hint">Листайте вниз</p>
+        </header>
+
+        <main>
+          <section class="section section--center section--schedule reveal" id="block-schedule">
+            <div class="date-strip-wrap">
+              <div class="date-strip" role="group" aria-label="Июль 2026: дни вокруг свадьбы">
+                <div class="date-strip__item">
+                  <span class="date-strip__dow">среда</span>
+                  <span class="date-strip__num">15</span>
+                  <span class="date-strip__month">июля</span>
+                </div>
+                <div class="date-strip__item date-strip__item--active" aria-current="date">
+                  <span class="date-strip__dow">четверг</span>
+                  <span class="date-strip__num">16</span>
+                  <span class="date-strip__month">июля</span>
+                </div>
+                <div class="date-strip__item">
+                  <span class="date-strip__dow">пятница</span>
+                  <span class="date-strip__num">17</span>
+                  <span class="date-strip__month">июля</span>
+                </div>
+              </div>
+            </div>
+
+            <h2>Программа дня</h2>
+
+            <div class="horiz-schedule" aria-label="Программа дня по этапам">
+              <div class="horiz-schedule__scroll hs-strip" role="list">
+                <article class="hs-item" role="listitem">
+                  <div class="hs-item__rail">
+                    <div class="hs-item__icon" aria-hidden="true">
+                      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M14 10v22c0 3 2.5 5.5 5.5 5.5h1M18 10v27.5M32 10v22c0 3-2.5 5.5-5.5 5.5h-1M28 10v27.5M10 18h6M32 18h6"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+                    </div>
+                    <div class="hs-item__vtrack" aria-hidden="true">
+                      <svg class="hs-item__vwave" viewBox="0 0 14 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M7 0 Q11 15 7 30 Q3 45 7 60 Q11 75 7 90 Q3 105 7 120"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.35"
+                          vector-effect="non-scaling-stroke"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="hs-item__body">
+                    <h3 class="hs-item__title">Welcome</h3>
+                    <time class="hs-item__time" datetime="2026-07-16T15:00">15:00</time>
+                    <div class="hs-item__wave" aria-hidden="true">
+                      <svg viewBox="0 0 80 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0 6 Q10 11 20 6 T40 6 T60 6 T80 6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.25"
+                          vector-effect="non-scaling-stroke"
+                        />
+                      </svg>
+                    </div>
+                    <div class="hs-item__desc">Прохладительные напитки, легкая обстановка и знакомства</div>
+                  </div>
+                </article>
+
+                <article class="hs-item" role="listitem">
+                  <div class="hs-item__rail">
+                    <div class="hs-item__icon" aria-hidden="true">
+                      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="17" cy="22" r="6" stroke="currentColor" stroke-width="1.5" />
+                        <circle cx="31" cy="22" r="6" stroke="currentColor" stroke-width="1.5" />
+                        <path d="M23 22h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        <path d="M24 16v-4M20 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                      </svg>
+                    </div>
+                    <div class="hs-item__vtrack" aria-hidden="true">
+                      <svg class="hs-item__vwave" viewBox="0 0 14 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M7 0 Q11 15 7 30 Q3 45 7 60 Q11 75 7 90 Q3 105 7 120"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.35"
+                          vector-effect="non-scaling-stroke"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="hs-item__body">
+                    <h3 class="hs-item__title">Церемония</h3>
+                    <time class="hs-item__time" datetime="2026-07-16T15:30">15:30</time>
+                    <div class="hs-item__wave" aria-hidden="true">
+                      <svg viewBox="0 0 80 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0 6 Q10 11 20 6 T40 6 T60 6 T80 6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.25"
+                          vector-effect="non-scaling-stroke"
+                        />
+                      </svg>
+                    </div>
+                    <div class="hs-item__desc">Вы станете свидетелями рождения новой семьи</div>
+                  </div>
+                </article>
+
+                <article class="hs-item" role="listitem">
+                  <div class="hs-item__rail">
+                    <div class="hs-item__icon" aria-hidden="true">
+                      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="24" cy="26" rx="14" ry="8" stroke="currentColor" stroke-width="1.5" />
+                        <path d="M34 14v10M36 12l-4 4M32 12l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                      </svg>
+                    </div>
+                    <div class="hs-item__vtrack" aria-hidden="true">
+                      <svg class="hs-item__vwave" viewBox="0 0 14 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M7 0 Q11 15 7 30 Q3 45 7 60 Q11 75 7 90 Q3 105 7 120"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.35"
+                          vector-effect="non-scaling-stroke"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="hs-item__body">
+                    <h3 class="hs-item__title">Начало банкета</h3>
+                    <time class="hs-item__time" datetime="2026-07-16T16:00">16:00</time>
+                    <div class="hs-item__wave" aria-hidden="true">
+                      <svg viewBox="0 0 80 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0 6 Q10 11 20 6 T40 6 T60 6 T80 6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.25"
+                          vector-effect="non-scaling-stroke"
+                        />
+                      </svg>
+                    </div>
+                    <div class="hs-item__desc">Самое время для вкусной еды, веселья и танцев</div>
+                  </div>
+                </article>
+
+                <article class="hs-item" role="listitem">
+                  <div class="hs-item__rail">
+                    <div class="hs-item__icon" aria-hidden="true">
+                      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M16 30h16v4H16v-4zm2-8h12v8H18v-8zm2-6h8v6h-8v-6z"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          stroke-linejoin="round"
+                        />
+                        <path d="M24 14v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                      </svg>
+                    </div>
+                    <div class="hs-item__vtrack" aria-hidden="true">
+                      <svg class="hs-item__vwave" viewBox="0 0 14 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M7 0 Q11 15 7 30 Q3 45 7 60 Q11 75 7 90 Q3 105 7 120"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.35"
+                          vector-effect="non-scaling-stroke"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="hs-item__body">
+                    <h3 class="hs-item__title">Торт</h3>
+                    <time class="hs-item__time" datetime="2026-07-16T20:00">20:00</time>
+                    <div class="hs-item__wave" aria-hidden="true">
+                      <svg viewBox="0 0 80 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0 6 Q10 11 20 6 T40 6 T60 6 T80 6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.25"
+                          vector-effect="non-scaling-stroke"
+                        />
+                      </svg>
+                    </div>
+                    <div class="hs-item__desc">Традиционное чаепитие с тортом</div>
+                  </div>
+                </article>
+
+                <article class="hs-item" role="listitem">
+                  <div class="hs-item__rail">
+                    <div class="hs-item__icon" aria-hidden="true">
+                      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M14 32c4-6 8-10 12-12 4 2 8 6 12 12M18 28c3-4 6-7 8-8 2 1 5 4 8 8"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                        />
+                        <circle cx="16" cy="18" r="2" fill="currentColor" />
+                        <circle cx="24" cy="14" r="2" fill="currentColor" />
+                        <circle cx="32" cy="18" r="2" fill="currentColor" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="hs-item__body">
+                    <h3 class="hs-item__title">Финал</h3>
+                    <time class="hs-item__time" datetime="2026-07-16T21:00">21:00</time>
+                    <div class="hs-item__wave" aria-hidden="true">
+                      <svg viewBox="0 0 80 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0 6 Q10 11 20 6 T40 6 T60 6 T80 6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.25"
+                          vector-effect="non-scaling-stroke"
+                        />
+                      </svg>
+                    </div>
+                    <div class="hs-item__desc">Надеемся, что наш праздник запомнится вам как один из лучших дней!</div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <section class="section section--center section--venue reveal" id="block-venue">
+            <h2>Место проведения торжества</h2>
+            <article class="venue-card" aria-labelledby="venue-name">
+              <div class="venue-card__media">
+                <img
+                  src="./static/venue-veranda.png"
+                  alt="Белая Веранда — площадка для церемонии"
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="venue-card__body">
+                <p class="venue-card__place" id="venue-name">Белая Веранда</p>
+                <p class="venue-card__address">Ул. Советская 81А, с. Грибоедово</p>
+                <div class="venue-card__actions">
+                  <a
+                    class="btn btn-primary venue-card__btn"
+                    href="https://yandex.ru/maps/?text=%D0%A3%D0%BB.%20%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%81%D0%BA%D0%B0%D1%8F%2081%D0%90%2C%20%D1%81.%20%D0%93%D1%80%D0%B8%D0%B1%D0%BE%D0%B5%D0%B4%D0%BE%D0%B2%D0%BE"
+                    id="route-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Построить маршрут</a
+                  >
+                </div>
+              </div>
+            </article>
+          </section>
+        </main>
+      </div>
+
+      <section class="section hidden reveal" id="thanks-panel">
+        <div class="thanks">
+          <h2>Спасибо!</h2>
+          <p class="lead thanks-lead">
+            Мы очень ждём вас <strong>16 · 07 · 2026</strong>  <strong>15:00</strong> на <strong>Белой Веранде</strong>, с.&nbsp;Грибоедово.
+          </p>
+          <div class="countdown" aria-label="Сколько осталось до свадьбы">
+            <div class="countdown__k">До свадьбы осталось</div>
+            <div class="countdown__v" id="wedding-countdown-thanks">—</div>
+          </div>
+          <p class="lead thanks-lead">
+            <strong>Когда:</strong> 16 · 07 · 2026, 15:00<br />
+            <strong>Куда:</strong> Белая Веранда, ул. Советская 81А, с. Грибоедово
+          </p>
+          <div class="actions thanks-actions">
+            <a
+              class="btn btn-primary btn-wide"
+              href="https://yandex.ru/maps/?text=%D0%A3%D0%BB.%20%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%81%D0%BA%D0%B0%D1%8F%2081%D0%90%2C%20%D1%81.%20%D0%93%D1%80%D0%B8%D0%B1%D0%BE%D0%B5%D0%B4%D0%BE%D0%B2%D0%BE"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Построить маршрут</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-mini">С любовью, Алина и Роман</p>
+    </div>
+
+    <script>
+      window.WEDDING_CONFIG = {
+        webhookUrl: "https://script.google.com/macros/s/AKfycbw79jR09DpJsQcwUnNf5BoLfri7Mj2tWMLB_RNSmSDrHGxl7mpFdD1pyXN7LNDgRc47/exec",
+        webhookToken: "wjdhqjlkQWD-PyBGnI-85EpEcmrZYDun18",
+      };
+    </script>
+    <script src="./static/app.js" defer></script>
   </body>
 </html>
